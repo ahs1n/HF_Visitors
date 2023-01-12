@@ -1,0 +1,2 @@
+rootProject.name = "HF_Visitors"
+include ':app'

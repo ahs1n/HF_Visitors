@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HF Visitors</string>
+    <string name="btnSave">Save</string>
+    <string name="btnEnd">Cancel</string>
+    <string name="signin">SIGN IN</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnDownloadData">Download Data</string>
+    <string name="cs_MAexist">might be already exist</string>
+    <string name="confirmPassword" translatable="false">Confirm Password</string>
+    <string name="btnResetPassword">Reset Password</string>
+    <string name="upd_db_error"> Updating Database… ERROR! </string>
+    <string name="oldPassword" translatable="false">Old Password</string>
+    <string name="newPassword" translatable="false">New Password</string>
+    <string name="db_excp_error" translatable="false"> Database Exception... ERROR! </string>
+    <string name="upd_db" translatable="false"> Updating Database...\t </string>
+    <string name="netwrok">Network connection not available!</string>
+    <string name="invalidpass">Invalid Password</string>
+    <string name="unameRequired">Username is required.</string>
+    <string name="incorrcetPass">Incorrect Password</string>
+    <string name="downData">Please download data before login</string>
+    <string name="permission">Permissions Required</string>
+    <string name="warning">Warning</string>
+    <string name="newApp">New App downloaded!!</string>
+    <string name="appVer">App New Version</string>
+    <string name="downloaded">Downloaded</string>
+    <string name="appDownload">appDownload</string>
+    <string name="newVer">New Version</string>
+    <string name="downloading">Downloading</string>
+    <string name="available">Available</string>
+    <string name="downError">Cant download.. Internet connectivity issue!</string>
+    <string name="backBtn">Press Back again to Exit</string>
+    <string name="noNetwork">No network connection available!</string>
+    <string name="appAvailable">APP is available!</string>
+    <string name="oldAppMsg">App Ver." + " is now available. Your are currently using older Ver."</string>
+    <string name="installNewApp">Install new version to use this app</string>
+    <string name="install">Install</string>
+    <string name="cancel">Cancel</string>
+    <string name="complete">complete</string>
+    <string name="updatingError">Error in updating db!!</string>
+    <string name="updateDbError1">"Sorry. You can't go further."</string>
+    <string name="updateDbError2">"Please contact IT Team (Failed to update DB)"</string>
+    <string name="bckBtn">You Cant go back</string>
+    <string name="processing">Processing</string>
+    <string name="confirmation">Confirmation!</string>
+    <string name="cntBtn">Are you sure, you want to continue - interview</string>
+    <string name="failedUpdateDb">SORRY! Failed to update DB</string>
+    <string name="invalidDate">Invalid date!</string>
+    <string name="btnSync">Download Data</string>
+    <string name="btnUpload">Upload Data</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="splashText"> </string>
+    <string name="splashText2"> </string>
+    <string name="check_pending_forms">CHECK PENDING FORMS</string>
+    <string name="open_new_form">OPEN NEW FORM</string>
+    <string name="records_summary">Records Summary</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="only_for_testing">ONLY FOR TESTING</string>
+    <string name="database">Database</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="action_database">Database Manager</string>
+    <string name="action_data_sync">Sync Data</string>
+
+
+    <string name="istatus">Result of Household Questionnaire interview</string>
+    <string name="istatusa">Completed</string>
+    <string name="istatusb">No household member at home or no competent respondent at home at time of visit</string>
+    <string name="istatusc">Entire household absent for extended period</string>
+    <string name="istatusd">Refused</string>
+    <string name="istatuse">Dwelling vacant or address not a dwelling</string>
+    <string name="istatusf">Dwelling not found</string>
+    <string name="istatus96">Other (specify)</string>
+
+    <string name="hf01">تاریخ</string>
+    <string name="hf02"> خانداندان کا نمبر</string>
+    <string name="hf03">گھرانے کے سربراہ کا نام؟</string>
+    <string name="hf04">گھر کے سربراہ کا موبائل نمبرر</string>
+    <string name="hf05">نام</string>
+    <string name="hf06">ڈی پی آر نمبر</string>
+
+    <string name='Q_hf01'>hf01</string>
+    <string name='Q_hf02'>hf02</string>
+    <string name='Q_hf03'>hf03</string>
+    <string name='Q_hf04'>hf04</string>
+    <string name='Q_hf05'>hf05</string>
+    <string name='Q_hf06'>hf06</string>
+
+    <string name='Q_istatus'>istatus</string>
+    <string name="btnDownload">Download Data</string>
+    <string name="folder_not_created">Folder Not Created</string>
+    <string name="network_conn_error">Network Connection Error</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="username_required">Username Required</string>
+    <string name="incorrect_username_or_password">Incorrect Username Or Password</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fail_db_upd">Failed to Update Database!</string>
+
+</resources>

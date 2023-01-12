@@ -1,0 +1,195 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="callback"
+            type="edu.aku.dmu.hf_visitors.ui.lists.ListingMembersListActivity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/app_bg_gray"
+        android:orientation="vertical">
+
+
+        <!--        &lt;!&ndash; CUSTOM TOOLBAR &ndash;&gt;
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/ToolbarTheme"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
+                    app:titleTextAppearance="@style/Toolbar.TitleText" />-->
+
+        <RelativeLayout
+            android:id="@+id/parentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/top_round_shape"
+                android:elevation="1dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="56dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/grayLight" />
+
+                <!-- search options -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RadioGroup
+                        android:id="@+id/searchBy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/searchByCard"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Search with Card No"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
+                            android:id="@+id/searchByName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Search by Name"
+                            android:textColor="@color/black" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/grayLight" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccentLightOverlay"
+                    android:gravity="center"
+                    android:text="You can search Patient with Name and HHID"
+                    android:textColor="@color/grayDark"
+                    android:textSize="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/memberId"
+                        style="@style/Theme.HF_Visitors"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_weight="1"
+                        android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890 "
+                        android:hint="Searh Patient"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:onClick="filterForms"
+                        android:src="@drawable/search"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    tools:itemCount="11"
+                    tools:listitem="@layout/registered_member_row" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:elevation="5dp">
+
+                <ImageView
+                    android:layout_width="@dimen/_43sdp"
+                    android:layout_height="@dimen/_43sdp"
+                    android:layout_alignStart="@+id/fmHeading"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="-16dp"
+                    android:elevation="@dimen/_4sdp"
+                    android:src="@drawable/app_icon" />
+
+                <TextView
+                    android:id="@+id/fmHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:background="@drawable/capsule"
+                    android:elevation="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:minHeight="56dp"
+                    android:radius="10dp"
+                    android:text="Registered Childs List"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/fmHeading"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/ic_girl"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="6dp"
+                    android:src="@drawable/ic_person_add"
+                    app:borderWidth="5dp"
+                    app:elevation="6dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</layout>
