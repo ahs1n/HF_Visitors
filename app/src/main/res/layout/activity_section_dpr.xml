@@ -81,7 +81,7 @@
                                 android:text="@={form.hf01}"
                                 app:dateFormat="dd-MM-yyyy"
                                 app:maxDate="CR_DATE"
-                                app:minDate="01/01/2020"
+                                app:minDate="CR_DATE"
                                 app:theme="@style/DatePickerEditTextDialogTheme" />
                         </LinearLayout>
                     </LinearLayout>
@@ -120,7 +120,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz "
+                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789- "
+                                android:gravity="center"
                                 android:inputType="textCapWords|textPersonName"
                                 android:text="@={form.hf02}" />
                         </LinearLayout>
@@ -160,7 +161,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789 "
+                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz "
                                 android:gravity="center"
                                 android:inputType="textCapWords|textPersonName"
                                 android:text="@={form.hf03}" />
@@ -239,19 +240,15 @@
                                 android:layout_weight="1"
                                 android:text="@string/hf05" />
 
-                            <com.edittextpicker.aliazaz.EditTextPicker
+                            <EditText
                                 android:id="@+id/hf05"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz "
                                 android:gravity="center"
-                                android:hint="##"
-                                android:inputType="number"
-                                android:maxLength="2"
-                                android:text="@={form.hf05}"
-                                app:maxValue="99"
-                                app:minValue="0"
-                                app:type="range" />
+                                android:inputType="textCapWords|textPersonName"
+                                android:text="@={form.hf05}" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

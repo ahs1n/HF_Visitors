@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
      *
      * @param listingMembers List<MembersModel> containing the data to populate views to be used by RecyclerView.
      */
-   /* public VaccinatedMembersAdapter(Context mContext, List<FormVB> members) {
+   /* public RegisteredMembersAdapter(Context mContext, List<ListingMembers> members) {
         this.member = members;
         this.mContext = mContext;
         completeCount = 0;
@@ -83,13 +84,15 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
         ImageView mainIcon = viewHolder.mainIcon;
 
         headName.setText(listingMembers.getHead());
-        contNo.setText(listingMembers.getCellNo());
+        contNo.setText("Cell: " + listingMembers.getCellNo());
 
         if (!listingMembers.getPwName().equals("")) {
-            pwName.setText(listingMembers.getPwName());
+            pwName.setText("PW: " + listingMembers.getPwName());
+            pwName.setTextColor(ContextCompat.getColor(mContext, R.color.orange_dark));
         }
         if (!listingMembers.getChildName().equals("")) {
-            pwName.setText(listingMembers.getChildName());
+            pwName.setText("Child: " + listingMembers.getChildName());
+            pwName.setTextColor(ContextCompat.getColor(mContext, R.color.redDark));
         }
 
         hhID.setText("HHID: " + listingMembers.getHhid());

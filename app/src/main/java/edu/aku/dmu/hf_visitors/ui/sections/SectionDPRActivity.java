@@ -1,8 +1,8 @@
 package edu.aku.dmu.hf_visitors.ui.sections;
 
 import static edu.aku.dmu.hf_visitors.core.MainApp.dpr;
+import static edu.aku.dmu.hf_visitors.core.MainApp.listingMembers;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,30 +15,47 @@ import com.validatorcrawler.aliazaz.Validator;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import edu.aku.dmu.hf_visitors.R;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.DPRTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.database.DatabaseHelper;
 import edu.aku.dmu.hf_visitors.databinding.ActivitySectionDprBinding;
+import edu.aku.dmu.hf_visitors.models.DPR;
 
 public class SectionDPRActivity extends AppCompatActivity {
 
     private static final String TAG = "SectionDPRActivity";
     ActivitySectionDprBinding bi;
+    String st = "";
     private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bi = DataBindingUtil.setContentView(this, R.layout.activity_section_dpr);
+        st = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date().getTime());
         setSupportActionBar(bi.toolbar);
         db = MainApp.appInfo.dbHelper;
+        MainApp.dpr = new DPR();
+        bi.setForm(dpr);
 
-/*        try {
-            dpr = db.getListingMembers(listingMembers.getHead(), listingMembers.getPwName(), listingMembers.getChildName()).get(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        bi.hf02.setText(listingMembers.getHhid());
+        dpr.setHf02(listingMembers.getHhid());
+        bi.hf03.setText(listingMembers.getHead());
+        dpr.setHf03(listingMembers.getHead());
+        bi.hf04.setText(listingMembers.getCellNo());
+        dpr.setHf04(listingMembers.getCellNo());
+        if (!listingMembers.getPwName().equals("")) {
+            bi.hf05.setText(listingMembers.getPwName());
+            dpr.setHf05(listingMembers.getPwName());
+        } else {
+            bi.hf05.setText(listingMembers.getChildName());
+            dpr.setHf05(listingMembers.getChildName());
+        }
     }
 
 
@@ -84,11 +101,12 @@ public class SectionDPRActivity extends AppCompatActivity {
 
     public void btnContinue(View view) {
         if (!formValidation()) return;
+        dpr.setStartTime(st);
         if (!insertNewRecord()) return;
         if (updateDB()) {
-            Intent i;
-            i = new Intent(this, SectionDPRActivity.class).putExtra("complete", true);
-            startActivity(i);
+            /*Intent i;
+            i = new Intent(this, ListingMembersListActivity.class);
+            startActivity(i);*/
             finish();
         } else {
             Toast.makeText(this, R.string.fail_db_upd, Toast.LENGTH_SHORT).show();

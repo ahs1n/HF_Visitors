@@ -69,10 +69,10 @@
                                 android:id="@+id/headName"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="1.5"
                                 android:gravity="start|center_vertical"
                                 android:text="Head Name"
-                                android:textColor="@color/grayDark"
+                                android:textColor="@color/purple_700"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -99,7 +99,7 @@
                                 android:id="@+id/pName"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="1.5"
                                 android:text=""
                                 android:textColor="@color/black" />
 

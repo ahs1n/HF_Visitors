@@ -32,11 +32,9 @@ public class DPR extends BaseObservable {
     // APP VARIABLES
     private String id = _EMPTY_;
     private String uid = _EMPTY_;
-    private String uuid = _EMPTY_;
     private String userName = _EMPTY_;
     private String sysDate = _EMPTY_;
     private String deviceId = _EMPTY_;
-    private String deviceTag = _EMPTY_;
     private String appver = _EMPTY_;
     private String endTime = _EMPTY_;
     private String startTime = _EMPTY_;
@@ -44,8 +42,8 @@ public class DPR extends BaseObservable {
     private String iStatus96x = _EMPTY_;
     private String synced = _EMPTY_;
     private String syncDate = _EMPTY_;
-    // FIELD VARIABLES
-    //  Section CR
+
+    //  Section DPR
     private String hf01 = _EMPTY_;
     private String hf02 = _EMPTY_;
     private String hf03 = _EMPTY_;
@@ -60,7 +58,6 @@ public class DPR extends BaseObservable {
         setSysDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
         setUserName(MainApp.user.getUserName());
         setDeviceId(MainApp.deviceid);
-        setDeviceTag(MainApp.appInfo.getTagName());
         setAppver(MainApp.appInfo.getAppVersion());
         setProjectName(PROJECT_NAME);
         setEndTime(new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
@@ -91,14 +88,6 @@ public class DPR extends BaseObservable {
         this.uid = uid;
     }
 
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -121,14 +110,6 @@ public class DPR extends BaseObservable {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
-    }
-
-    public String getDeviceTag() {
-        return deviceTag;
-    }
-
-    public void setDeviceTag(String deviceTag) {
-        this.deviceTag = deviceTag;
     }
 
     public String getAppver() {
@@ -259,11 +240,9 @@ public class DPR extends BaseObservable {
     public DPR Hydrate(Cursor cursor) throws JSONException {
         this.id = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_ID));
         this.uid = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_UID));
-        this.uuid = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_UUID));
         this.userName = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_USERNAME));
         this.sysDate = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_SYSDATE));
         this.deviceId = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_DEVICEID));
-        this.deviceTag = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_DEVICETAGID));
         this.appver = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_APPVERSION));
         this.iStatus = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_ISTATUS));
         this.synced = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_SYNCED));
@@ -309,11 +288,9 @@ public class DPR extends BaseObservable {
         JSONObject json = new JSONObject();
         json.put(DPRTable.COLUMN_ID, this.id);
         json.put(DPRTable.COLUMN_UID, this.uid);
-        json.put(DPRTable.COLUMN_UUID, this.uuid);
         json.put(DPRTable.COLUMN_USERNAME, this.userName);
         json.put(DPRTable.COLUMN_SYSDATE, this.sysDate);
         json.put(DPRTable.COLUMN_DEVICEID, this.deviceId);
-        json.put(DPRTable.COLUMN_DEVICETAGID, this.deviceTag);
         json.put(DPRTable.COLUMN_ISTATUS, this.iStatus);
         json.put(DPRTable.COLUMN_SYNCED, this.synced);
         json.put(DPRTable.COLUMN_SYNCED_DATE, this.syncDate);

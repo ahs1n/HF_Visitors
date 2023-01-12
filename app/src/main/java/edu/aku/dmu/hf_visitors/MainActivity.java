@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         MenuItem action_database = menu.findItem(R.id.action_database);
 
         action_database.setVisible(MainApp.admin);
-        action_database.setVisible(true);
         return true;
 
     }

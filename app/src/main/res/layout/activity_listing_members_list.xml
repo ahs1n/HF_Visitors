@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccentLightOverlay"
                     android:gravity="center"
-                    android:text="You can search Patient with Name and HHID"
+                    android:text="You can search Patient with Name and Cell Number"
                     android:textColor="@color/grayDark"
                     android:textSize="@dimen/_10sdp" />
 

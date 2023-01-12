@@ -41,10 +41,6 @@ import edu.aku.dmu.hf_visitors.models.EntryLog;
 import edu.aku.dmu.hf_visitors.models.ListingMembers;
 import edu.aku.dmu.hf_visitors.models.Users;
 
-
-
-/*import edu.aku.hassannaqvi.naunehal.models.Immunization;*/
-
 /**
  * @author muhammad.hussain on 11/01/2023.
  */
@@ -89,11 +85,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(DPRTable.COLUMN_PROJECT_NAME, dpr.getProjectName());
         values.put(DPRTable.COLUMN_UID, dpr.getUid());
-        values.put(DPRTable.COLUMN_UUID, dpr.getUuid());
         values.put(DPRTable.COLUMN_USERNAME, dpr.getUserName());
         values.put(DPRTable.COLUMN_SYSDATE, dpr.getSysDate());
         values.put(DPRTable.COLUMN_ISTATUS, dpr.getiStatus());
-        values.put(DPRTable.COLUMN_DEVICETAGID, dpr.getDeviceTag());
         values.put(DPRTable.COLUMN_DEVICEID, dpr.getDeviceId());
         values.put(DPRTable.COLUMN_APPVERSION, dpr.getAppver());
         values.put(DPRTable.COLUMN_START_TIME, dpr.getStartTime());
@@ -752,70 +746,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
         return allForm;
     }
-
-    /*Update entered member from FormCRFollowUP Table*/
-    /*public List<ListingMembers> getListingMembers(String head, String pwName, String childName) throws JSONException {
-        SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
-        Cursor c = null;
-        String[] columns = null;
-        String whereClause = ListingMembersTable.COLUMN_HEAD + " = ? AND " +
-                ListingMembersTable.COLUMN_PW_NAME + " = ? AND " + ListingMembersTable.COLUMN_CHILD_NAME + " = ? ";
-        String[] whereArgs = {head, pwName, childName};
-        String groupBy = null;
-        String having = null;
-        String orderBy = ListingMembersTable.COLUMN_ID + " ASC";
-
-        List<ListingMembers> listingMembers = new ArrayList<>();
-        c = db.query(
-                ListingMembersTable.TABLE_NAME,  // The table to query
-                columns,                   // The columns to return
-                whereClause,               // The columns for the WHERE clause
-                whereArgs,                 // The values for the WHERE clause
-                groupBy,                   // don't group the rows
-                having,                    // don't filter by row groups
-                orderBy                    // The sort order
-        );
-        while (c.moveToNext()) {
-            listingMembers.add(new ListingMembers().hydrate(c));
-        }
-
-        if (c != null && !c.isClosed()) {
-            c.close();
-        }
-        c.close();
-        return listingMembers;
-    }*/
-
-    /*Update entered member from FormCR Table*/
-    /*public ListingMember getRegisteredMembersFormCR(String uuid) throws JSONException {
-        SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
-        Cursor c = null;
-        String[] columns = null;
-        String whereClause = FormCRTable.COLUMN_UUID + " = ? ";
-        String[] whereArgs = {uuid};
-        String groupBy = null;
-        String having = null;
-        String orderBy = FormCRTable.COLUMN_ID + " ASC";
-
-        ListingMember listingMemberFollowUPS = null;
-        c = db.query(
-                FormCRTable.TABLE_NAME,  // The table to query
-                columns,                   // The columns to return
-                whereClause,               // The columns for the WHERE clause
-                whereArgs,                 // The values for the WHERE clause
-                groupBy,                   // don't group the rows
-                having,                    // don't filter by row groups
-                orderBy                    // The sort order
-        );
-        while (c.moveToNext()) {
-            listingMemberFollowUPS = new ListingMember().Hydrate(c);
-        }
-
-        if (c != null && !c.isClosed()) {
-            c.close();
-        }
-        c.close();
-        return listingMemberFollowUPS;
-    }*/
-
 }
