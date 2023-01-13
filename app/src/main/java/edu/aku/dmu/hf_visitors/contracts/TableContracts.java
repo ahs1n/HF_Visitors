@@ -26,6 +26,7 @@ public class TableContracts {
         public static final String TABLE_NAME = "listvisitor";
         public static final String COLUMN_ID = "_id";
         public static final String COLUMN_UID = "_uid";
+        public static final String COLUMN_R_TYPE = "rtype";
         public static final String COLUMN_HF_CODE = "hf_code";
         public static final String COLUMN_GEOAREA = "geoarea";
         public static final String COLUMN_FAMILY_NO = "FamilyNo";

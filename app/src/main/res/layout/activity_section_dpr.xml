@@ -120,8 +120,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789- "
                                 android:gravity="center"
+                                android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789- "
                                 android:inputType="textCapWords|textPersonName"
                                 android:text="@={form.hf02}" />
                         </LinearLayout>

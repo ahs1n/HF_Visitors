@@ -101,5 +101,6 @@
     <string name="incorrect_username_or_password">Incorrect Username Or Password</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fail_db_upd">Failed to Update Database!</string>
+    <string name="household_head">Head of household:\n%s</string>
 
 </resources>

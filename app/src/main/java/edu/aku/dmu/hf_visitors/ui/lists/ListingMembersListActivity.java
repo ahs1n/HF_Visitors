@@ -30,6 +30,7 @@ import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.database.DatabaseHelper;
 import edu.aku.dmu.hf_visitors.databinding.ActivityListingMembersListBinding;
 import edu.aku.dmu.hf_visitors.models.DPR;
+import edu.aku.dmu.hf_visitors.models.ListingMembers;
 import edu.aku.dmu.hf_visitors.ui.sections.SectionDPRActivity;
 
 
@@ -115,9 +116,10 @@ public class ListingMembersListActivity extends AppCompatActivity {
 
     private void addMoreMember() {
         MainApp.dpr = new DPR();
+        MainApp.listingMembers = new ListingMembers();
         Intent intent = new Intent(this, SectionDPRActivity.class)
                 .putExtra("new", true);
-        finish();
+//        finish();
         MemberInfoLauncher.launch(intent);
     }
 

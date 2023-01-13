@@ -26,6 +26,7 @@ object CreateTable {
             + ListingMembersTable.TABLE_NAME + "("
             + ListingMembersTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + ListingMembersTable.COLUMN_UID + " TEXT,"
+            + ListingMembersTable.COLUMN_R_TYPE + " TEXT,"
             + ListingMembersTable.COLUMN_HF_CODE + " TEXT,"
             + ListingMembersTable.COLUMN_GEOAREA + " TEXT,"
             + ListingMembersTable.COLUMN_FAMILY_NO + " TEXT,"

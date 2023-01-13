@@ -3,7 +3,6 @@ package edu.aku.dmu.hf_visitors.models
 import android.database.Cursor
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable
 import edu.aku.dmu.hf_visitors.core.MainApp._EMPTY_
-import org.apache.commons.lang3.StringUtils
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -12,7 +11,8 @@ import org.json.JSONObject
  */
 class ListingMembers {
     var ID: Long = 0
-    var uID: String = StringUtils.EMPTY
+    var uID: String = _EMPTY_
+    var rtype: String = _EMPTY_
     var hf_code: String = _EMPTY_
     var geoarea: String = _EMPTY_
     var familyNo: String = _EMPTY_
@@ -29,6 +29,7 @@ class ListingMembers {
     @Throws(JSONException::class)
     fun sync(jsonObject: JSONObject): ListingMembers {
         uID = jsonObject.getString(ListingMembersTable.COLUMN_UID)
+        rtype = jsonObject.getString(ListingMembersTable.COLUMN_R_TYPE)
         hf_code = jsonObject.getString(ListingMembersTable.COLUMN_HF_CODE)
         geoarea = jsonObject.getString(ListingMembersTable.COLUMN_GEOAREA)
         familyNo = jsonObject.getString(ListingMembersTable.COLUMN_FAMILY_NO)
@@ -42,6 +43,7 @@ class ListingMembers {
 
     fun hydrate(cursor: Cursor): ListingMembers {
         ID = cursor.getLong(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_ID))
+        rtype = cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_R_TYPE))
         uID =
             cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_UID))
         hf_code =

@@ -438,6 +438,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
 
             values.put(ListingMembersTable.COLUMN_UID, listingMembers.getUID());
+            values.put(ListingMembersTable.COLUMN_R_TYPE, listingMembers.getRtype());
             values.put(ListingMembersTable.COLUMN_HF_CODE, listingMembers.getHf_code());
             values.put(ListingMembersTable.COLUMN_GEOAREA, listingMembers.getGeoarea());
             values.put(ListingMembersTable.COLUMN_FAMILY_NO, listingMembers.getFamilyNo());
@@ -635,7 +636,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String groupBy = null;
         String having = null;
 
-        String orderBy = ListingMembersTable.COLUMN_ID + " ASC";
+        String orderBy = ListingMembersTable.COLUMN_HHID + ", " + ListingMembersTable.COLUMN_R_TYPE + " ASC";
+
         List<ListingMembers> allForm = new ArrayList<>();
 
         c = db.query(
@@ -665,7 +667,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] whereArgs = new String[]{head, pwName, childName};
         String groupBy = null;
         String having = null;
-        String orderBy = ListingMembersTable.COLUMN_ID + " ASC";
+        String orderBy = ListingMembersTable.COLUMN_HHID + ", " + ListingMembersTable.COLUMN_R_TYPE + " ASC";
         ListingMembers listingMembers = new ListingMembers();
         c = db.query(
                 ListingMembersTable.TABLE_NAME,  // The table to query
@@ -692,8 +694,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String groupBy = null;
         String having = null;
 
-        String orderBy =
-                ListingMembersTable.COLUMN_ID + " ASC";
+        String orderBy = ListingMembersTable.COLUMN_HHID + ", " + ListingMembersTable.COLUMN_R_TYPE + " ASC";
 
         List<ListingMembers> allForm = new ArrayList<>();
 
@@ -725,8 +726,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String groupBy = null;
         String having = null;
 
-        String orderBy =
-                ListingMembersTable.COLUMN_ID + " ASC";
+        String orderBy = ListingMembersTable.COLUMN_HHID + ", " + ListingMembersTable.COLUMN_R_TYPE + " ASC";
 
         List<ListingMembers> allForm = new ArrayList<>();
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -82,18 +83,45 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
         TextView cName = viewHolder.cName;
         TextView hhID = viewHolder.hhID;
         ImageView mainIcon = viewHolder.mainIcon;
+        LinearLayout headBackClr = viewHolder.headBackClr;
+        LinearLayout headBorder = viewHolder.headBorder;
 
+        /*if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals("")) {
+//            headName.setText("Head of HouseHold \n" +listingMembers.getHead());
+            String hoh = String.format(mContext.getString(R.string.household_head), listingMembers.getHead());
+            SpannableString spannable = new SpannableString(hoh);
+            // here we set the color
+            spannable.setSpan(new ForegroundColorSpan(Color.GRAY), 0, 17, 0);
+
+            headName.setText(spannable);
+        } else*/
         headName.setText(listingMembers.getHead());
+
         contNo.setText("Cell: " + listingMembers.getCellNo());
 
         if (!listingMembers.getPwName().equals("")) {
             pwName.setText("PW: " + listingMembers.getPwName());
+            headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.lightPink1));
+            headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             pwName.setTextColor(ContextCompat.getColor(mContext, R.color.orange_dark));
-        }
-        if (!listingMembers.getChildName().equals("")) {
+            viewHolder.itemView.setPadding((int) mContext.getResources().getDimension(R.dimen._10sdp), 0, 0, 0);
+        } else if (!listingMembers.getChildName().equals("")) {
             pwName.setText("Child: " + listingMembers.getChildName());
+            headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentLightOverlay));
+            headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             pwName.setTextColor(ContextCompat.getColor(mContext, R.color.redDark));
+            viewHolder.itemView.setPadding((int) mContext.getResources().getDimension(R.dimen._10sdp), 0, 0, 0);
+        } else {
+            pwName.setText("HEAD OF HOUSEHOLD");
+            pwName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
+            headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentLight1));
+            headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.purple_700));
+            viewHolder.itemView.setPadding(0, 0, 0, 0);
         }
+
+/*        if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals("")) {
+            linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentLight1));
+        } else linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));*/
 
         hhID.setText("HHID: " + listingMembers.getHhid());
         if (listingMembers.getChildName().equals("") && listingMembers.getPwName().equals(""))
@@ -134,6 +162,8 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
         private final TextView cName;
         private final TextView hhID;
         private final ImageView mainIcon;
+        private final LinearLayout headBackClr;
+        private final LinearLayout headBorder;
 
 
         public ViewHolder(View v) {
@@ -144,6 +174,8 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
             cName = v.findViewById(R.id.cName);
             hhID = v.findViewById(R.id.hhID);
             mainIcon = v.findViewById(R.id.mainIcon);
+            headBackClr = v.findViewById(R.id.regMem);
+            headBorder = v.findViewById(R.id.forHeadBorder);
 
         }
 

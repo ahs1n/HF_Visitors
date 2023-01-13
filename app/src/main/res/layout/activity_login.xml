@@ -188,7 +188,7 @@
                                     android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
                                     android:background="@drawable/all_round_corners"
-                                    android:backgroundTint="@color/colorAccent"
+                                    android:backgroundTint="@color/blue"
                                     android:elevation="1dp"
                                     android:onClick="attemptLogin"
                                     android:paddingStart="12dp"
