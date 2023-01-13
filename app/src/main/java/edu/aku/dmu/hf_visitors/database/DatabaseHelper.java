@@ -4,10 +4,10 @@ import static edu.aku.dmu.hf_visitors.core.MainApp.IBAHC;
 import static edu.aku.dmu.hf_visitors.core.MainApp.PROJECT_NAME;
 import static edu.aku.dmu.hf_visitors.core.UserAuth.checkPassword;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ENTRYLOGS;
-import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_FORMDPR;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ListingMembers;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_USERS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VERSIONAPP;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VISITORS;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -31,10 +31,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import edu.aku.dmu.hf_visitors.contracts.TableContracts.DPRTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.EntryLogTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.UsersTable;
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.models.DPR;
 import edu.aku.dmu.hf_visitors.models.EntryLog;
@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_USERS);
-        db.execSQL(SQL_CREATE_FORMDPR);
+        db.execSQL(SQL_CREATE_VISITORS);
         db.execSQL(SQL_CREATE_ListingMembers);
         db.execSQL(SQL_CREATE_VERSIONAPP);
         db.execSQL(SQL_CREATE_ENTRYLOGS);
@@ -83,22 +83,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Long addMember(DPR dpr) throws JSONException {
         SQLiteDatabase db = this.getWritableDatabase(DATABASE_PASSWORD);
         ContentValues values = new ContentValues();
-        values.put(DPRTable.COLUMN_PROJECT_NAME, dpr.getProjectName());
-        values.put(DPRTable.COLUMN_UID, dpr.getUid());
-        values.put(DPRTable.COLUMN_USERNAME, dpr.getUserName());
-        values.put(DPRTable.COLUMN_SYSDATE, dpr.getSysDate());
-        values.put(DPRTable.COLUMN_ISTATUS, dpr.getiStatus());
-        values.put(DPRTable.COLUMN_DEVICEID, dpr.getDeviceId());
-        values.put(DPRTable.COLUMN_APPVERSION, dpr.getAppver());
-        values.put(DPRTable.COLUMN_START_TIME, dpr.getStartTime());
-        values.put(DPRTable.COLUMN_END_TIME, dpr.getEndTime());
-        values.put(DPRTable.COLUMN_DPR, dpr.dPRtoString());
+        values.put(VisitorsTable.COLUMN_PROJECT_NAME, dpr.getProjectName());
+        values.put(VisitorsTable.COLUMN_UID, dpr.getUid());
+        values.put(VisitorsTable.COLUMN_UUID, dpr.getUuid());
+        values.put(VisitorsTable.COLUMN_USERNAME, dpr.getUserName());
+        values.put(VisitorsTable.COLUMN_SYSDATE, dpr.getSysDate());
+        values.put(VisitorsTable.COLUMN_ISTATUS, dpr.getiStatus());
+        values.put(VisitorsTable.COLUMN_DEVICEID, dpr.getDeviceId());
+        values.put(VisitorsTable.COLUMN_APPVERSION, dpr.getAppver());
+        values.put(VisitorsTable.COLUMN_START_TIME, dpr.getStartTime());
+        values.put(VisitorsTable.COLUMN_END_TIME, dpr.getEndTime());
+        values.put(VisitorsTable.COLUMN_FLAG, dpr.getFlag());
+        values.put(VisitorsTable.COLUMN_DPR, dpr.dPRtoString());
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
         newRowId = db.insert(
-                DPRTable.TABLE_NAME,
-                DPRTable.COLUMN_NAME_NULLABLE,
+                VisitorsTable.TABLE_NAME,
+                VisitorsTable.COLUMN_NAME_NULLABLE,
                 values);
         return newRowId;
     }
@@ -109,6 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(EntryLogTable.COLUMN_PROJECT_NAME, entryLog.getProjectName());
         values.put(EntryLogTable.COLUMN_UUID, entryLog.getUuid());
+        values.put(EntryLogTable.COLUMN_EB_CODE, entryLog.getEbCode());
         values.put(EntryLogTable.COLUMN_USERNAME, entryLog.getUserName());
         values.put(EntryLogTable.COLUMN_SYSDATE, entryLog.getSysDate());
         values.put(EntryLogTable.COLUMN_ISTATUS, entryLog.getiStatus());
@@ -135,10 +138,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(column, value);
 
-        String selection = DPRTable._ID + " =? ";
+        String selection = VisitorsTable._ID + " =? ";
         String[] selectionArgs = {String.valueOf(MainApp.dpr.getId())};
 
-        return db.update(DPRTable.TABLE_NAME,
+        return db.update(VisitorsTable.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
@@ -165,13 +168,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // New value for one column
         ContentValues values = new ContentValues();
-        values.put(DPRTable.COLUMN_ISTATUS, MainApp.dpr.getiStatus());
+        values.put(VisitorsTable.COLUMN_ISTATUS, MainApp.dpr.getiStatus());
 
         // Which row to update, based on the ID
-        String selection = DPRTable.COLUMN_ID + " =? ";
+        String selection = VisitorsTable.COLUMN_ID + " =? ";
         String[] selectionArgs = {String.valueOf(MainApp.dpr.getId())};
 
-        return db.update(DPRTable.TABLE_NAME,
+        return db.update(VisitorsTable.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
@@ -227,23 +230,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
         Cursor c = null;
         String[] columns = {
-                DPRTable._ID,
-                DPRTable.COLUMN_UID,
-                DPRTable.COLUMN_SYSDATE,
-                DPRTable.COLUMN_USERNAME,
-                DPRTable.COLUMN_ISTATUS,
-                DPRTable.COLUMN_SYNCED,
+                VisitorsTable._ID,
+                VisitorsTable.COLUMN_UID,
+                VisitorsTable.COLUMN_SYSDATE,
+                VisitorsTable.COLUMN_USERNAME,
+                VisitorsTable.COLUMN_ISTATUS,
+                VisitorsTable.COLUMN_SYNCED,
 
         };
-        String whereClause = DPRTable.COLUMN_SYSDATE + " Like ? ";
+        String whereClause = VisitorsTable.COLUMN_SYSDATE + " Like ? ";
         String[] whereArgs = new String[]{"%" + sysdate + " %"};
         String groupBy = null;
         String having = null;
-        String orderBy = DPRTable.COLUMN_ID + " ASC";
+        String orderBy = VisitorsTable.COLUMN_ID + " ASC";
         ArrayList<DPR> allForms = new ArrayList<>();
         try {
             c = db.query(
-                    DPRTable.TABLE_NAME,  // The table to query
+                    VisitorsTable.TABLE_NAME,  // The table to query
                     columns,                   // The columns to return
                     whereClause,               // The columns for the WHERE clause
                     whereArgs,                 // The values for the WHERE clause
@@ -253,10 +256,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 DPR forms = new DPR();
-                forms.setId(c.getString(c.getColumnIndexOrThrow(DPRTable.COLUMN_ID)));
-                forms.setUid(c.getString(c.getColumnIndexOrThrow(DPRTable.COLUMN_UID)));
-                forms.setSysDate(c.getString(c.getColumnIndexOrThrow(DPRTable.COLUMN_SYSDATE)));
-                forms.setUserName(c.getString(c.getColumnIndexOrThrow(DPRTable.COLUMN_USERNAME)));
+                forms.setId(c.getString(c.getColumnIndexOrThrow(VisitorsTable.COLUMN_ID)));
+                forms.setUid(c.getString(c.getColumnIndexOrThrow(VisitorsTable.COLUMN_UID)));
+                forms.setSysDate(c.getString(c.getColumnIndexOrThrow(VisitorsTable.COLUMN_SYSDATE)));
+                forms.setUserName(c.getString(c.getColumnIndexOrThrow(VisitorsTable.COLUMN_USERNAME)));
                 allForms.add(forms);
             }
         } finally {
@@ -275,20 +278,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = null;
 
         String whereClause;
-        whereClause = DPRTable.COLUMN_UID + "=? AND " +
-                DPRTable.COLUMN_ISTATUS + " in " + istatus;
+        whereClause = VisitorsTable.COLUMN_UID + "=? AND " +
+                VisitorsTable.COLUMN_ISTATUS + " in " + istatus;
 
         String[] whereArgs = {uid};
 
         String groupBy = null;
         String having = null;
 
-        String orderBy = DPRTable.COLUMN_ID + " ASC";
+        String orderBy = VisitorsTable.COLUMN_ID + " ASC";
 
         DPR allFC = null;
         try {
             c = db.query(
-                    DPRTable.TABLE_NAME,  // The table to query
+                    VisitorsTable.TABLE_NAME,  // The table to query
                     columns,                   // The columns to return
                     whereClause,               // The columns for the WHERE clause
                     whereArgs,                 // The values for the WHERE clause
@@ -456,24 +459,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //get UnSyncedTables
-    public JSONArray getUnsyncedFormCR() throws JSONException {
+    public JSONArray getUnsyncedVisitors() throws JSONException {
         SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
         Cursor c = null;
         String[] columns = null;
 
         String whereClause;
-        whereClause = DPRTable.COLUMN_SYNCED + " is null ";
+        whereClause = VisitorsTable.COLUMN_SYNCED + " is null ";
 
         String[] whereArgs = null;
 
         String groupBy = null;
         String having = null;
 
-        String orderBy = DPRTable.COLUMN_ID + " ASC";
+        String orderBy = VisitorsTable.COLUMN_ID + " ASC";
 
         JSONArray allCR = new JSONArray();
         c = db.query(
-                DPRTable.TABLE_NAME,  // The table to query
+                VisitorsTable.TABLE_NAME,  // The table to query
                 columns,                   // The columns to return
                 whereClause,               // The columns for the WHERE clause
                 whereArgs,                 // The values for the WHERE clause
@@ -528,20 +531,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //update SyncedTables
-    public void updateSyncedFormCRV2(String id) {
+    public void updateSyncedVisitors(String id) {
         SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
 
 // New value for one column
         ContentValues values = new ContentValues();
-        values.put(DPRTable.COLUMN_SYNCED, true);
-        values.put(DPRTable.COLUMN_SYNCED_DATE, new Date().toString());
+        values.put(VisitorsTable.COLUMN_SYNCED, true);
+        values.put(VisitorsTable.COLUMN_SYNCED_DATE, new Date().toString());
 
 // Which row to update, based on the title
-        String where = DPRTable.COLUMN_ID + " = ?";
+        String where = VisitorsTable.COLUMN_ID + " = ?";
         String[] whereArgs = {id};
 
         int count = db.update(
-                DPRTable.TABLE_NAME,
+                VisitorsTable.TABLE_NAME,
                 values,
                 where,
                 whereArgs);

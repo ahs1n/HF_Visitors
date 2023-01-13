@@ -40,7 +40,7 @@ import edu.aku.dmu.hf_visitors.ui.LockActivity;
 
 public class MainApp extends Application {
 
-    public static final String PROJECT_NAME = "hf_visitors";
+    public static final String PROJECT_NAME = "HF Visitors";
     public static final String SYNC_LOGIN = "sync_login";
     public static final String _IP = "https://vcoe1.aku.edu";// .LIVE server
     //public static final String _IP = "http://43.245.131.159:8080";// .TEST server

@@ -1,6 +1,7 @@
 package edu.aku.dmu.hf_visitors.models;
 
 import static edu.aku.dmu.hf_visitors.core.MainApp.PROJECT_NAME;
+import static edu.aku.dmu.hf_visitors.core.MainApp._EMPTY_;
 
 import android.database.Cursor;
 
@@ -35,6 +36,7 @@ public class EntryLog extends BaseObservable implements Observable {
     private String userName = StringUtils.EMPTY;
     private String sysDate = StringUtils.EMPTY;
     private String entryDate = StringUtils.EMPTY;
+    private String ebCode = _EMPTY_;
     private String hhid = StringUtils.EMPTY;
     private String appver = StringUtils.EMPTY;            //
     private String iStatus = StringUtils.EMPTY;
@@ -199,11 +201,22 @@ public class EntryLog extends BaseObservable implements Observable {
         this.syncDate = syncDate;
     }
 
+    @Bindable
+    public String getEbCode() {
+        return ebCode;
+    }
+
+    public void setEbCode(String ebCode) {
+        this.ebCode = ebCode;
+        notifyPropertyChanged(BR.ebCode);
+    }
+
     public EntryLog Hydrate(Cursor cursor) throws JSONException {
         this.id = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_ID));
         this.uid = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_UID));
         this.uuid = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_UUID));
         this.projectName = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_PROJECT_NAME));
+        this.ebCode = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_EB_CODE));
         this.userName = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_USERNAME));
         this.sysDate = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_SYSDATE));
         this.entryDate = cursor.getString(cursor.getColumnIndexOrThrow(EntryLogTable.COLUMN_ENTRY_DATE));
@@ -225,6 +238,7 @@ public class EntryLog extends BaseObservable implements Observable {
         json.put(EntryLogTable.COLUMN_UID, this.uid);
         json.put(EntryLogTable.COLUMN_UUID, this.uuid);
         json.put(EntryLogTable.COLUMN_PROJECT_NAME, this.projectName);
+        json.put(EntryLogTable.COLUMN_EB_CODE, this.ebCode);
         json.put(EntryLogTable.COLUMN_USERNAME, this.userName);
         json.put(EntryLogTable.COLUMN_SYSDATE, this.sysDate);
         json.put(EntryLogTable.COLUMN_ENTRY_DATE, this.entryDate);

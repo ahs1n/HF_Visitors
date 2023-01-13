@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import edu.aku.dmu.hf_visitors.BR;
-import edu.aku.dmu.hf_visitors.contracts.TableContracts.DPRTable;
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 
 public class DPR extends BaseObservable {
@@ -32,6 +32,7 @@ public class DPR extends BaseObservable {
     // APP VARIABLES
     private String id = _EMPTY_;
     private String uid = _EMPTY_;
+    private String uuid = _EMPTY_;
     private String userName = _EMPTY_;
     private String sysDate = _EMPTY_;
     private String deviceId = _EMPTY_;
@@ -42,6 +43,7 @@ public class DPR extends BaseObservable {
     private String iStatus96x = _EMPTY_;
     private String synced = _EMPTY_;
     private String syncDate = _EMPTY_;
+    private String flag = _EMPTY_;
 
     //  Section DPR
     private String hf01 = _EMPTY_;
@@ -86,6 +88,14 @@ public class DPR extends BaseObservable {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getUserName() {
@@ -169,6 +179,14 @@ public class DPR extends BaseObservable {
         this.syncDate = syncDate;
     }
 
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
     public String getdPR() {
         return dPR;
     }
@@ -238,18 +256,21 @@ public class DPR extends BaseObservable {
     }
 
     public DPR Hydrate(Cursor cursor) throws JSONException {
-        this.id = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_ID));
-        this.uid = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_UID));
-        this.userName = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_USERNAME));
-        this.sysDate = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_SYSDATE));
-        this.deviceId = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_DEVICEID));
-        this.appver = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_APPVERSION));
-        this.iStatus = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_ISTATUS));
-        this.synced = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_SYNCED));
-        this.syncDate = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_SYNCED_DATE));
-        this.endTime = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_END_TIME));
-        this.startTime = cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_START_TIME));
-        dPRHydrate(cursor.getString(cursor.getColumnIndexOrThrow(DPRTable.COLUMN_DPR)));
+        this.id = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_ID));
+        this.uid = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_UID));
+        this.uuid = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_UUID));
+        this.userName = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_USERNAME));
+        this.projectName = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_PROJECT_NAME));
+        this.sysDate = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_SYSDATE));
+        this.deviceId = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_DEVICEID));
+        this.appver = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_APPVERSION));
+        this.iStatus = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_ISTATUS));
+        this.synced = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_SYNCED));
+        this.syncDate = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_SYNCED_DATE));
+        this.endTime = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_END_TIME));
+        this.startTime = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_START_TIME));
+        this.flag = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_FLAG));
+        dPRHydrate(cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_DPR)));
 
         return this;
     }
@@ -286,18 +307,21 @@ public class DPR extends BaseObservable {
 
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(DPRTable.COLUMN_ID, this.id);
-        json.put(DPRTable.COLUMN_UID, this.uid);
-        json.put(DPRTable.COLUMN_USERNAME, this.userName);
-        json.put(DPRTable.COLUMN_SYSDATE, this.sysDate);
-        json.put(DPRTable.COLUMN_DEVICEID, this.deviceId);
-        json.put(DPRTable.COLUMN_ISTATUS, this.iStatus);
-        json.put(DPRTable.COLUMN_SYNCED, this.synced);
-        json.put(DPRTable.COLUMN_SYNCED_DATE, this.syncDate);
-        json.put(DPRTable.COLUMN_END_TIME, this.endTime);
-        json.put(DPRTable.COLUMN_START_TIME, this.startTime);
+        json.put(VisitorsTable.COLUMN_ID, this.id);
+        json.put(VisitorsTable.COLUMN_UID, this.uid);
+        json.put(VisitorsTable.COLUMN_UUID, this.uuid);
+        json.put(VisitorsTable.COLUMN_USERNAME, this.userName);
+        json.put(VisitorsTable.COLUMN_PROJECT_NAME, this.projectName);
+        json.put(VisitorsTable.COLUMN_SYSDATE, this.sysDate);
+        json.put(VisitorsTable.COLUMN_DEVICEID, this.deviceId);
+        json.put(VisitorsTable.COLUMN_ISTATUS, this.iStatus);
+        json.put(VisitorsTable.COLUMN_SYNCED, this.synced);
+        json.put(VisitorsTable.COLUMN_SYNCED_DATE, this.syncDate);
+        json.put(VisitorsTable.COLUMN_END_TIME, this.endTime);
+        json.put(VisitorsTable.COLUMN_START_TIME, this.startTime);
+        json.put(VisitorsTable.COLUMN_FLAG, this.flag);
 
-        json.put(DPRTable.COLUMN_DPR, new JSONObject(dPRtoString()));
+        json.put(VisitorsTable.COLUMN_DPR, new JSONObject(dPRtoString()));
         return json;
     }
 }

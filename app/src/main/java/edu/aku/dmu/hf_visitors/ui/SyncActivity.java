@@ -49,11 +49,11 @@ import java.util.concurrent.TimeUnit;
 
 import edu.aku.dmu.hf_visitors.R;
 import edu.aku.dmu.hf_visitors.adapters.SyncListAdapter;
-import edu.aku.dmu.hf_visitors.contracts.TableContracts.DPRTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.EntryLogTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.UsersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.VersionTable;
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.database.DatabaseHelper;
 import edu.aku.dmu.hf_visitors.databinding.ActivitySyncBinding;
@@ -143,13 +143,13 @@ public class SyncActivity extends AppCompatActivity {
                 uploadTables.clear();
                 MainApp.uploadData.clear();
 
-                // FormsCR
-                uploadTables.add(new SyncModel(DPRTable.TABLE_NAME));
+                // Visitors
+                uploadTables.add(new SyncModel(VisitorsTable.TABLE_NAME));
                 try {
-                    MainApp.uploadData.add(db.getUnsyncedFormCR());
+                    MainApp.uploadData.add(db.getUnsyncedVisitors());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(this, "JSONException(FormCR): " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "JSONException(Visitors): " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 //Entry Log

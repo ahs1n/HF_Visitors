@@ -20,42 +20,50 @@ import java.util.Date;
 import java.util.Locale;
 
 import edu.aku.dmu.hf_visitors.R;
-import edu.aku.dmu.hf_visitors.contracts.TableContracts.DPRTable;
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.database.DatabaseHelper;
-import edu.aku.dmu.hf_visitors.databinding.ActivitySectionDprBinding;
+import edu.aku.dmu.hf_visitors.databinding.ActivitySectionVisitorsBinding;
 import edu.aku.dmu.hf_visitors.models.DPR;
 
-public class SectionDPRActivity extends AppCompatActivity {
+public class SectionVisitorsActivity extends AppCompatActivity {
 
     private static final String TAG = "SectionDPRActivity";
-    ActivitySectionDprBinding bi;
+    ActivitySectionVisitorsBinding bi;
     String st = "";
     private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bi = DataBindingUtil.setContentView(this, R.layout.activity_section_dpr);
+        bi = DataBindingUtil.setContentView(this, R.layout.activity_section_visitors);
         st = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date().getTime());
         setSupportActionBar(bi.toolbar);
         db = MainApp.appInfo.dbHelper;
         MainApp.dpr = new DPR();
         bi.setForm(dpr);
 
-        bi.hf02.setText(listingMembers.getHhid());
-        dpr.setHf02(listingMembers.getHhid());
-        bi.hf03.setText(listingMembers.getHead());
-        dpr.setHf03(listingMembers.getHead());
-        bi.hf04.setText(listingMembers.getCellNo());
-        dpr.setHf04(listingMembers.getCellNo());
-        if (!listingMembers.getPwName().equals("")) {
-            bi.hf05.setText(listingMembers.getPwName());
-            dpr.setHf05(listingMembers.getPwName());
-        } else {
-            bi.hf05.setText(listingMembers.getChildName());
-            dpr.setHf05(listingMembers.getChildName());
-        }
+        boolean isNew = getIntent().getBooleanExtra("new", false);
+
+        if (!isNew) {
+            dpr.setFlag("1");
+            dpr.setUuid(listingMembers.getUID());
+            bi.hf02.setText(listingMembers.getHhid());
+            dpr.setHf02(listingMembers.getHhid());
+            bi.hf03.setText(listingMembers.getHead());
+            dpr.setHf03(listingMembers.getHead());
+            bi.hf04.setText(listingMembers.getCellNo());
+            dpr.setHf04(listingMembers.getCellNo());
+            if (!listingMembers.getPwName().equals("")) {
+                bi.hf05.setText(listingMembers.getPwName());
+                dpr.setHf05(listingMembers.getPwName());
+            } else {
+                bi.hf05.setText(listingMembers.getChildName());
+                dpr.setHf05(listingMembers.getChildName());
+            }
+            if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals(""))
+                dpr.setFlag("2");
+        } else dpr.setFlag("3");
     }
 
 
@@ -73,7 +81,7 @@ public class SectionDPRActivity extends AppCompatActivity {
         MainApp.dpr.setId(String.valueOf(rowId));
         if (rowId > 0) {
             MainApp.dpr.setUid(MainApp.dpr.getDeviceId() + MainApp.dpr.getId());
-            db.updateMemberColumn(DPRTable.COLUMN_UID, dpr.getUid());
+            db.updateMemberColumn(VisitorsTable.COLUMN_UID, dpr.getUid());
             return true;
         } else {
             Toast.makeText(this, R.string.upd_db_error, Toast.LENGTH_SHORT).show();
@@ -86,7 +94,7 @@ public class SectionDPRActivity extends AppCompatActivity {
         db = MainApp.appInfo.getDbHelper();
         long updcount = 0;
         try {
-            updcount = db.updateMemberColumn(DPRTable.COLUMN_DPR, dpr.dPRtoString());
+            updcount = db.updateMemberColumn(VisitorsTable.COLUMN_DPR, dpr.dPRtoString());
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, R.string.upd_db + e.getMessage());

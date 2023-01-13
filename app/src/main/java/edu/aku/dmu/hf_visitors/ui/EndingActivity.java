@@ -80,7 +80,7 @@ public class EndingActivity extends AppCompatActivity {
 
 
     private boolean UpdateDB() {
-        int updcount = db.updateMemberColumn(TableContracts.DPRTable.COLUMN_ISTATUS, dpr.getiStatus());
+        int updcount = db.updateMemberColumn(TableContracts.VisitorsTable.COLUMN_ISTATUS, dpr.getiStatus());
         return updcount > 0;
     }
 

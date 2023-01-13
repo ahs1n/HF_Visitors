@@ -33,7 +33,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.sections.SectionDPRActivity"
+            android:name=".ui.sections.SectionVisitorsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeUrdu"
             android:windowSoftInputMode="adjustResize" />
