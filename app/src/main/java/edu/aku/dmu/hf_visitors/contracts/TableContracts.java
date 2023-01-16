@@ -22,6 +22,7 @@ public class TableContracts {
         public static final String COLUMN_END_TIME = "end_time";
         public static final String COLUMN_START_TIME = "start_time";
         public static final String COLUMN_FLAG = "flag";
+        public static final String COLUMN_HF_CODE = "hf_code";
     }
 
     public static abstract class ListingMembersTable implements BaseColumns {

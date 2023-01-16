@@ -14,6 +14,7 @@ object CreateTable {
             + VisitorsTable.COLUMN_SYSDATE + " TEXT,"
             + VisitorsTable.COLUMN_START_TIME + " TEXT,"
             + VisitorsTable.COLUMN_FLAG + " TEXT,"
+            + VisitorsTable.COLUMN_HF_CODE + " TEXT,"
             + VisitorsTable.COLUMN_END_TIME + " TEXT,"
             + VisitorsTable.COLUMN_ISTATUS + " TEXT,"
             + VisitorsTable.COLUMN_DEVICEID + " TEXT,"

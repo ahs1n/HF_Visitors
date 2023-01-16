@@ -94,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(VisitorsTable.COLUMN_START_TIME, dpr.getStartTime());
         values.put(VisitorsTable.COLUMN_END_TIME, dpr.getEndTime());
         values.put(VisitorsTable.COLUMN_FLAG, dpr.getFlag());
+        values.put(VisitorsTable.COLUMN_HF_CODE, dpr.getHfCode());
         values.put(VisitorsTable.COLUMN_DPR, dpr.dPRtoString());
 
         // Insert the new row, returning the primary key value of the new row

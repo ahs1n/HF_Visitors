@@ -2,6 +2,7 @@ package edu.aku.dmu.hf_visitors.ui.sections;
 
 import static edu.aku.dmu.hf_visitors.core.MainApp.dpr;
 import static edu.aku.dmu.hf_visitors.core.MainApp.listingMembers;
+import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -42,11 +43,11 @@ public class SectionVisitorsActivity extends AppCompatActivity {
         db = MainApp.appInfo.dbHelper;
         MainApp.dpr = new DPR();
         bi.setForm(dpr);
+        checkTodayDate();
 
         boolean isNew = getIntent().getBooleanExtra("new", false);
 
         if (!isNew) {
-            dpr.setFlag("1");
             dpr.setUuid(listingMembers.getUID());
             bi.hf02.setText(listingMembers.getHhid());
             dpr.setHf02(listingMembers.getHhid());
@@ -54,16 +55,43 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             dpr.setHf03(listingMembers.getHead());
             bi.hf04.setText(listingMembers.getCellNo());
             dpr.setHf04(listingMembers.getCellNo());
+
             if (!listingMembers.getPwName().equals("")) {
                 bi.hf05.setText(listingMembers.getPwName());
                 dpr.setHf05(listingMembers.getPwName());
-            } else {
+
+            } else if (!listingMembers.getChildName().equals("")) {
                 bi.hf05.setText(listingMembers.getChildName());
                 dpr.setHf05(listingMembers.getChildName());
             }
-            if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals(""))
+
+            if (!listingMembers.getPwName().equals("") || !listingMembers.getChildName().equals("")) {
+                dpr.setFlag("1");
+            } else if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals("")) {
                 dpr.setFlag("2");
-        } else dpr.setFlag("3");
+            }
+
+        } else {
+            dpr.setFlag("3");
+            bi.fldGrpCVhf07.setVisibility(View.VISIBLE);
+        }
+
+//        MainApp.dprNO++;
+        bi.hf06.setText(new StringBuilder().append(sharedPref.getString("tabID", "")).append(MainApp.dprNO).toString());
+        dpr.setHf06(sharedPref.getString("tabID", "") + MainApp.dprNO);
+    }
+
+    private void checkTodayDate() {
+        String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
+        String savedDate = sharedPref.getString("todayEntryDate", "");
+        if (savedDate.equals("") || !savedDate.equals(todayDate)) {
+            MainApp.editor.putString("todayEntryDate", todayDate).apply();
+            MainApp.dprNO = 1;
+            sharedPref.edit().putInt("dpr_no", MainApp.dprNO).apply();
+        } else {
+            MainApp.dprNO = sharedPref.getInt("dpr_no", 1);
+        }
+
     }
 
 
@@ -115,6 +143,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             /*Intent i;
             i = new Intent(this, ListingMembersListActivity.class);
             startActivity(i);*/
+            sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
             finish();
         } else {
             Toast.makeText(this, R.string.fail_db_upd, Toast.LENGTH_SHORT).show();
@@ -123,6 +152,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 
 
     public void btnEnd(View view) {
+        MainApp.dprNO--;
         finish();
     }
 
@@ -133,6 +163,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        MainApp.dprNO--;
         setResult(RESULT_CANCELED);
     }
 

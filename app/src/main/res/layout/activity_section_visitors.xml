@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -120,8 +121,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789- "
+                                android:gravity="center"
                                 android:inputType="textCapWords|textPersonName"
                                 android:text="@={form.hf02}" />
                         </LinearLayout>
@@ -284,17 +285,73 @@
                             <com.edittextpicker.aliazaz.EditTextPicker
                                 android:id="@+id/hf06"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:background="@color/colorPrimaryOverlay"
+                                android:enabled="false"
                                 android:gravity="center"
-                                android:hint="####"
+                                android:hint="###"
                                 android:inputType="number"
-                                android:maxLength="5"
+                                android:maxLength="3"
                                 android:text="@={form.hf06}"
-                                app:maxValue="99999"
+                                android:textColor="@color/grayDark"
+                                app:maxValue="999"
                                 app:minValue="0"
                                 app:type="range" />
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/lightPink1"
+                            android:gravity="center"
+                            android:text="@string/hf06Info"
+                            android:textColor="@color/grayDark"
+                            android:textSize="@dimen/_11sdp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Address  Input   -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fldGrpCVhf07"
+                    style="@style/cardView"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/quesNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/Q_hf07" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/hf07" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/hf07"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:hint="@string/hf07"
+                            android:lines="5"
+                            android:minLines="5"
+                            android:text="@={form.hf07}" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -313,20 +370,6 @@
                     app:elevation="50dp">
 
                     <Button
-                        android:id="@+id/btn_End"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
-                        android:background="@drawable/button_shape_red"
-                        android:drawableTint="#ea0000"
-                        android:fontFamily="@font/roboto"
-                        android:onClick="btnEnd"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:text="Exit"
-                        android:textColor="@color/white" />
-
-                    <Button
                         android:id="@+id/btn_Continue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -338,6 +381,20 @@
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
                         android:text="Save"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_End"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:background="@drawable/button_shape_red"
+                        android:drawableTint="#ea0000"
+                        android:fontFamily="@font/roboto"
+                        android:onClick="btnEnd"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="Exit"
                         android:textColor="@color/white" />
 
                 </LinearLayout>

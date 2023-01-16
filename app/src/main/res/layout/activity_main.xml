@@ -111,7 +111,7 @@
                                         android:drawablePadding="12dp"
                                         android:gravity="center_vertical"
                                         android:minWidth="460dp"
-                                        android:text="Open Form"
+                                        android:text="Start Visitors Mapping"
                                         android:textColor="@color/colorPrimary"
                                         android:textSize="16dp" />
 
@@ -120,7 +120,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="36dp"
                                         android:gravity="center_horizontal|center_vertical"
-                                        android:text="Open to enter child form"
+                                        android:text="Identify the patient from listing data"
                                         android:textColor="@color/gray"
                                         android:textSize="14sp" />
                                 </LinearLayout>

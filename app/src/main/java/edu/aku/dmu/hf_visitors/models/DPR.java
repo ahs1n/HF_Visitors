@@ -44,6 +44,7 @@ public class DPR extends BaseObservable {
     private String synced = _EMPTY_;
     private String syncDate = _EMPTY_;
     private String flag = _EMPTY_;
+    private String hfCode = _EMPTY_;
 
     //  Section DPR
     private String hf01 = _EMPTY_;
@@ -52,6 +53,7 @@ public class DPR extends BaseObservable {
     private String hf04 = _EMPTY_;
     private String hf05 = _EMPTY_;
     private String hf06 = _EMPTY_;
+    private String hf07 = _EMPTY_;
     private String dPR = _EMPTY_;
 
 
@@ -62,6 +64,7 @@ public class DPR extends BaseObservable {
         setDeviceId(MainApp.deviceid);
         setAppver(MainApp.appInfo.getAppVersion());
         setProjectName(PROJECT_NAME);
+        setHfCode(MainApp.user.getHfcode());
         setEndTime(new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date().getTime()));
 
     }
@@ -187,6 +190,14 @@ public class DPR extends BaseObservable {
         this.flag = flag;
     }
 
+    public String getHfCode() {
+        return hfCode;
+    }
+
+    public void setHfCode(String hfCode) {
+        this.hfCode = hfCode;
+    }
+
     public String getdPR() {
         return dPR;
     }
@@ -255,6 +266,16 @@ public class DPR extends BaseObservable {
         notifyPropertyChanged(BR.hf06);
     }
 
+    @Bindable
+    public String getHf07() {
+        return hf07;
+    }
+
+    public void setHf07(String hf07) {
+        this.hf07 = hf07;
+        notifyPropertyChanged(BR.hf07);
+    }
+
     public DPR Hydrate(Cursor cursor) throws JSONException {
         this.id = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_ID));
         this.uid = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_UID));
@@ -270,6 +291,7 @@ public class DPR extends BaseObservable {
         this.endTime = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_END_TIME));
         this.startTime = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_START_TIME));
         this.flag = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_FLAG));
+        this.hfCode = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_HF_CODE));
         dPRHydrate(cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_DPR)));
 
         return this;
@@ -286,6 +308,7 @@ public class DPR extends BaseObservable {
             this.hf04 = json.getString("hf04");
             this.hf05 = json.getString("hf05");
             this.hf06 = json.getString("hf06");
+            this.hf07 = json.getString("hf07");
         }
     }
 
@@ -299,7 +322,8 @@ public class DPR extends BaseObservable {
                 .put("hf03", hf03)
                 .put("hf04", hf04)
                 .put("hf05", hf05)
-                .put("hf06", hf06);
+                .put("hf06", hf06)
+                .put("hf07", hf07);
 
         return json.toString();
     }
@@ -320,6 +344,7 @@ public class DPR extends BaseObservable {
         json.put(VisitorsTable.COLUMN_END_TIME, this.endTime);
         json.put(VisitorsTable.COLUMN_START_TIME, this.startTime);
         json.put(VisitorsTable.COLUMN_FLAG, this.flag);
+        json.put(VisitorsTable.COLUMN_HF_CODE, this.hfCode);
 
         json.put(VisitorsTable.COLUMN_DPR, new JSONObject(dPRtoString()));
         return json;

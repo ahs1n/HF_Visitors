@@ -1,12 +1,18 @@
 package edu.aku.dmu.hf_visitors;
 
+import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -37,6 +43,26 @@ public class MainActivity extends AppCompatActivity {
         bi.adminView.setVisibility(MainApp.admin ? View.VISIBLE : View.GONE);
         bi.username.setText("Welcome, " + MainApp.user.getFullname() + "!");
 
+        String tab_ID = sharedPref.getString("tabID", "");
+
+        if (tab_ID.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Enter Tablet ID");
+
+            /*Setup the input*/
+            final EditText tabID = new EditText(this);
+            tabID.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
+            tabID.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+            builder.setView(tabID);
+
+            // Set up the buttons
+            builder.setPositiveButton("OK", (dialog, which) -> {
+                MainApp.editor.putString("tabID", tabID.getText().toString()).apply();
+            });
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+            builder.show();
+        }
     }
 
     public void sectionPress(View view) {

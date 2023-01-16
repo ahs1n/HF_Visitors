@@ -74,31 +74,14 @@ public class MainApp extends Application {
     public static int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
     public static long TWO_MINUTES = 1000 * 60 * 2;
     public static boolean permissionCheck = false;
-    public static int idType = 0;
-    public static boolean mwraComplete;
-    public static boolean childComplete;
-    public static boolean pregComplete;
-    public static int mwraCount = 0;
-    public static int childCount = 0;
-    public static int pregCount = 0;
-    public static String selectedFemale = "";
-    public static String selectedChild = "";
-    public static String selectedPreg = "";
-    public static int mwraCountComplete = 0;
-    public static int childCountComplete = 0;
-    public static int pregCountComplete = 0;
-    public static List<String> subjectNames;
-    public static String crAddress;
-    public static String wrAddress;
     public static String IBAHC = "";
     public static CountDownTimer timer;
-    public static String dmureg;
-    public static String reg;
-    public static List<DPR> DPRList;
     public static List<ListingMembers> listingMembersList;
     public static ListingMembers listingMembers;
     public static int memberCount = 0;
     static ToneGenerator toneGen1;
+    public static String tabID = "";
+    public static int dprNO = 0;
 
     public static void hideSystemUI(View decorView) {
         // Enables regular immersive mode.
