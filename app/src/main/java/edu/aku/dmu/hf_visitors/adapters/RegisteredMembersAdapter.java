@@ -52,7 +52,7 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
 
     // Add filter
     @SuppressLint("NotifyDataSetChanged")
-    public void filter(String query) {
+    public void filterByHead(String query) {
         if (query.equals("")) {
             // Show original list
             listingMembers.clear();
@@ -61,7 +61,43 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
         } else {
             listingMembers.clear();
             for (ListingMembers listingMembers : backupItems) {
-                if (listingMembers.getHead().toLowerCase().contains(query) || listingMembers.getCellNo().contains(query)) {
+                if (listingMembers.getHead().toLowerCase().contains(query)) {
+                    this.listingMembers.add(listingMembers);
+                }
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterByChild(String query) {
+        if (query.equals("")) {
+            // Show original list
+            listingMembers.clear();
+            listingMembers.addAll(backupItems);
+            notifyDataSetChanged();
+        } else {
+            listingMembers.clear();
+            for (ListingMembers listingMembers : backupItems) {
+                if (listingMembers.getChildName().toLowerCase().contains(query)) {
+                    this.listingMembers.add(listingMembers);
+                }
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterByCell(String query) {
+        if (query.equals("")) {
+            // Show original list
+            listingMembers.clear();
+            listingMembers.addAll(backupItems);
+            notifyDataSetChanged();
+        } else {
+            listingMembers.clear();
+            for (ListingMembers listingMembers : backupItems) {
+                if (listingMembers.getCellNo().contains(query)) {
                     this.listingMembers.add(listingMembers);
                 }
             }

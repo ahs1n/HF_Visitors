@@ -86,6 +86,12 @@
     <string name="hf06">ڈی پی آر نمبر</string>
     <string name="hf06Info">برائے مہربانی HF06 کے سامنے نظر آنے والا کوڈ فارم پر لکھ کر سرکل کرنا نہ بھولیں</string>
     <string name="hf07">گھر کا پتہ</string>
+    <string name="hf08">جنس</string>
+    <string name="hf0801">لڑکہ</string>
+    <string name="hf0802">لڑکی</string>
+    <string name="hf09">عمر</string>
+    <string name="hf09y">سال</string>
+    <string name="hf09m">مہینہ</string>
 
     <string name='Q_hf01'>hf01</string>
     <string name='Q_hf02'>hf02</string>
@@ -94,6 +100,8 @@
     <string name='Q_hf05'>hf05</string>
     <string name='Q_hf06'>hf06</string>
     <string name='Q_hf07'>hf07</string>
+    <string name='Q_hf08'>hf08</string>
+    <string name='Q_hf09'>hf09</string>
 
     <string name='Q_istatus'>istatus</string>
     <string name="btnDownload">Download Data</string>

@@ -17,7 +17,7 @@
         <entry key="..\:/Android Office Work/EPI_Register/app/src/main/res/layout/registered_member_row.xml" value="0.31583333333333335" />
         <entry key="..\:/Android Office Work/EPI_Register/app/src/main/res/menu/main_menu.xml" value="0.31" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/drawable/button_shape_green.xml" value="0.3425" />
-        <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_listing_members_list.xml" value="0.3025" />
+        <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_listing_members_list.xml" value="0.33" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_login.xml" value="0.3025" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_main.xml" value="0.305" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_registered_list_child.xml" value="0.305" />
@@ -34,7 +34,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

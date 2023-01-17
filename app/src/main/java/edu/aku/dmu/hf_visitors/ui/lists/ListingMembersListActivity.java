@@ -95,10 +95,15 @@ public class ListingMembersListActivity extends AppCompatActivity {
         bi.searchBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (bi.searchByName.isChecked()) {
-                    bi.memberId.setHint("Name");
+                if (bi.searchByHead.isChecked()) {
+                    bi.memberId.setText(null);
+                    bi.memberId.setHint("HH Head Name");
+                } else if (bi.searchByChild.isChecked()) {
+                    bi.memberId.setText(null);
+                    bi.memberId.setHint("Child Name");
                 } else {
-                    bi.memberId.setHint("Card No.");
+                    bi.memberId.setText(null);
+                    bi.memberId.setHint("Cell Number");
                 }
             }
         });
@@ -126,7 +131,7 @@ public class ListingMembersListActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     public void filterForms(View view) throws JSONException {
 
-        if (bi.searchByName.isChecked()) {
+        if (bi.searchByHead.isChecked()) {
             Toast.makeText(this, "Searched", Toast.LENGTH_SHORT).show();
 
             listingMembersList = db.getAllMembersByHHName(bi.memberId.getText().toString());
@@ -196,14 +201,22 @@ public class ListingMembersListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                registeredMembersAdapter.filter(s.toString());
+                if (bi.searchByCell.isChecked()) {
+                    registeredMembersAdapter.filterByCell(s.toString());
+                } else if (bi.searchByChild.isChecked()) {
+                    registeredMembersAdapter.filterByChild(s.toString());
+                } else registeredMembersAdapter.filterByHead(s.toString());
             }
         });
 
         bi.memberId.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                registeredMembersAdapter.filter(v.getText().toString());
+                if (bi.searchByCell.isChecked()) {
+                    registeredMembersAdapter.filterByCell(v.getText().toString());
+                } else if (bi.searchByChild.isChecked()) {
+                    registeredMembersAdapter.filterByChild(v.getText().toString());
+                } else registeredMembersAdapter.filterByHead(v.getText().toString());
                 return true;
             }
         });

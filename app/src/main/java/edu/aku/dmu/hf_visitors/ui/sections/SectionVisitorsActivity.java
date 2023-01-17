@@ -69,11 +69,15 @@ public class SectionVisitorsActivity extends AppCompatActivity {
                 dpr.setFlag("1");
             } else if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals("")) {
                 dpr.setFlag("2");
+                bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
+                bi.fldGrpCVhf09.setVisibility(View.VISIBLE);
             }
 
         } else {
             dpr.setFlag("3");
             bi.fldGrpCVhf07.setVisibility(View.VISIBLE);
+            bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
+            bi.fldGrpCVhf09.setVisibility(View.VISIBLE);
         }
 
 //        MainApp.dprNO++;

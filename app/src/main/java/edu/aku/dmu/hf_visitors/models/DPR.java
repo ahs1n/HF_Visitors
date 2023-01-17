@@ -54,6 +54,9 @@ public class DPR extends BaseObservable {
     private String hf05 = _EMPTY_;
     private String hf06 = _EMPTY_;
     private String hf07 = _EMPTY_;
+    private String hf08 = _EMPTY_;
+    private String hf09m = _EMPTY_;
+    private String hf09y = _EMPTY_;
     private String dPR = _EMPTY_;
 
 
@@ -276,6 +279,36 @@ public class DPR extends BaseObservable {
         notifyPropertyChanged(BR.hf07);
     }
 
+    @Bindable
+    public String getHf08() {
+        return hf08;
+    }
+
+    public void setHf08(String hf08) {
+        this.hf08 = hf08;
+        notifyPropertyChanged(BR.hf08);
+    }
+
+    @Bindable
+    public String getHf09m() {
+        return hf09m;
+    }
+
+    public void setHf09m(String hf09m) {
+        this.hf09m = hf09m;
+        notifyPropertyChanged(BR.hf09m);
+    }
+
+    @Bindable
+    public String getHf09y() {
+        return hf09y;
+    }
+
+    public void setHf09y(String hf09y) {
+        this.hf09y = hf09y;
+        notifyPropertyChanged(BR.hf09y);
+    }
+
     public DPR Hydrate(Cursor cursor) throws JSONException {
         this.id = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_ID));
         this.uid = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_UID));
@@ -309,6 +342,9 @@ public class DPR extends BaseObservable {
             this.hf05 = json.getString("hf05");
             this.hf06 = json.getString("hf06");
             this.hf07 = json.getString("hf07");
+            this.hf08 = json.getString("gender");
+            this.hf09m = json.getString("agem");
+            this.hf09y = json.getString("agey");
         }
     }
 
@@ -323,7 +359,10 @@ public class DPR extends BaseObservable {
                 .put("hf04", hf04)
                 .put("hf05", hf05)
                 .put("hf06", hf06)
-                .put("hf07", hf07);
+                .put("hf07", hf07)
+                .put("gender", hf08)
+                .put("agem", hf09m)
+                .put("agey", hf09y);
 
         return json.toString();
     }
@@ -338,6 +377,7 @@ public class DPR extends BaseObservable {
         json.put(VisitorsTable.COLUMN_PROJECT_NAME, this.projectName);
         json.put(VisitorsTable.COLUMN_SYSDATE, this.sysDate);
         json.put(VisitorsTable.COLUMN_DEVICEID, this.deviceId);
+        json.put(VisitorsTable.COLUMN_APPVERSION, this.appver);
         json.put(VisitorsTable.COLUMN_ISTATUS, this.iStatus);
         json.put(VisitorsTable.COLUMN_SYNCED, this.synced);
         json.put(VisitorsTable.COLUMN_SYNCED_DATE, this.syncDate);
