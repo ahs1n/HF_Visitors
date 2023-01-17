@@ -63,11 +63,16 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             } else if (!listingMembers.getChildName().equals("")) {
                 bi.hf05.setText(listingMembers.getChildName());
                 dpr.setHf05(listingMembers.getChildName());
+            } else if (!listingMembers.getNewMemberName().equals("")) {
+                bi.hf05.setText(listingMembers.getNewMemberName());
+                dpr.setHf05(listingMembers.getNewMemberName());
             }
 
-            if (!listingMembers.getPwName().equals("") || !listingMembers.getChildName().equals("")) {
+            if (!listingMembers.getPwName().equals("") || !listingMembers.getChildName().equals("") ||
+                    !listingMembers.getNewMemberName().equals("")) {
                 dpr.setFlag("1");
-            } else if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals("")) {
+            } else if (listingMembers.getPwName().equals("") && listingMembers.getChildName().equals("") &&
+                    listingMembers.getNewMemberName().equals("")) {
                 dpr.setFlag("2");
                 bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
                 bi.fldGrpCVhf09.setVisibility(View.VISIBLE);

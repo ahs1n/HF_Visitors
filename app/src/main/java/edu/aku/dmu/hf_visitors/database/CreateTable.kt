@@ -37,7 +37,8 @@ object CreateTable {
             + ListingMembersTable.COLUMN_HEAD + " TEXT,"
             + ListingMembersTable.COLUMN_CELL_NO + " TEXT,"
             + ListingMembersTable.COLUMN_PW_NAME + " TEXT,"
-            + ListingMembersTable.COLUMN_CHILD_NAME + " TEXT"
+            + ListingMembersTable.COLUMN_CHILD_NAME + " TEXT,"
+            + ListingMembersTable.COLUMN_NEW_MEMBER_NAME + " TEXT"
             + " );"
             )
 

@@ -71,7 +71,7 @@ public class ListingMembersListActivity extends AppCompatActivity {
 
         registeredMembersAdapter = new RegisteredMembersAdapter(this, listingMembersList, member -> {
             try {
-                MainApp.listingMembers = db.getSelectedMembers(member.getHead(), member.getPwName(), member.getChildName());
+                MainApp.listingMembers = db.getSelectedMembers(member.getHead(), member.getPwName(), member.getChildName(), member.getNewMemberName());
                 Toast.makeText(ListingMembersListActivity.this,
                         "Selected Member\n HH No: "
                                 + member.getHhid() + "\nHead Name: "
@@ -138,7 +138,7 @@ public class ListingMembersListActivity extends AppCompatActivity {
             registeredMembersAdapter = new RegisteredMembersAdapter(this, listingMembersList, member -> {
 
                 try {
-                    listingMembers = db.getSelectedMembers(member.getHead(), member.getPwName(), member.getChildName());
+                    listingMembers = db.getSelectedMembers(member.getHead(), member.getPwName(), member.getChildName(), member.getNewMemberName());
                     Toast.makeText(ListingMembersListActivity.this,
                             "Selected Member\n HH No: "
                                     + member.getHhid() + "\nHead Name: "
@@ -157,7 +157,7 @@ public class ListingMembersListActivity extends AppCompatActivity {
             registeredMembersAdapter = new RegisteredMembersAdapter(this, listingMembersList, member -> {
 
                 try {
-                    listingMembers = db.getSelectedMembers(member.getHead(), member.getPwName(), member.getChildName());
+                    listingMembers = db.getSelectedMembers(member.getHead(), member.getPwName(), member.getChildName(), member.getNewMemberName());
                     Toast.makeText(ListingMembersListActivity.this,
                             "Selected Member\n HH No: "
                                     + member.getHhid() + "\nHead Name: "

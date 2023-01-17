@@ -2,6 +2,7 @@ package edu.aku.dmu.hf_visitors.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,16 +140,33 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
             pwName.setText("PW: " + listingMembers.getPwName());
             headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.lightPink1));
             headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            headName.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
             pwName.setTextColor(ContextCompat.getColor(mContext, R.color.orange_dark));
+            pwName.setTypeface(null, Typeface.BOLD);
+            pwName.setTextSize(15f);
             viewHolder.itemView.setPadding((int) mContext.getResources().getDimension(R.dimen._10sdp), 0, 0, 0);
         } else if (!listingMembers.getChildName().equals("")) {
             pwName.setText("Child: " + listingMembers.getChildName());
             headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentLightOverlay));
             headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            headName.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
             pwName.setTextColor(ContextCompat.getColor(mContext, R.color.redDark));
+            pwName.setTypeface(null, Typeface.BOLD);
+            pwName.setTextSize(15f);
+            viewHolder.itemView.setPadding((int) mContext.getResources().getDimension(R.dimen._10sdp), 0, 0, 0);
+        } else if (!listingMembers.getNewMemberName().equals("")) {
+            pwName.setText("New Mem: " + listingMembers.getNewMemberName());
+            headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.light_yellow));
+            headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            headName.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
+            pwName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark1));
+            pwName.setTypeface(null, Typeface.BOLD);
+            pwName.setTextSize(15f);
             viewHolder.itemView.setPadding((int) mContext.getResources().getDimension(R.dimen._10sdp), 0, 0, 0);
         } else {
             pwName.setText("HEAD OF HOUSEHOLD");
+            pwName.setTypeface(null, Typeface.NORMAL);
+            headName.setTextColor(ContextCompat.getColor(mContext, R.color.purple_700));
             pwName.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark));
             headBackClr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentLight1));
             headBorder.setBackgroundColor(ContextCompat.getColor(mContext, R.color.purple_700));
@@ -160,11 +178,13 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
         } else linearLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));*/
 
         hhID.setText("HHID: " + listingMembers.getHhid());
-        if (listingMembers.getChildName().equals("") && listingMembers.getPwName().equals(""))
+        if (listingMembers.getChildName().equals("") && listingMembers.getPwName().equals("") && listingMembers.getNewMemberName().equals(""))
             mainIcon.setImageResource(R.drawable.adult_male);
-        else if (listingMembers.getChildName().length() > 0)
+        else if (listingMembers.getChildName().length() > 0 && !listingMembers.getChildName().equals(""))
             mainIcon.setImageResource(R.drawable.malebabyicon);
-        else mainIcon.setImageResource(R.drawable.mwraicon);
+        else if (listingMembers.getPwName().length() > 0 && !listingMembers.getPwName().equals(""))
+            mainIcon.setImageResource(R.drawable.mwraicon);
+        else mainIcon.setImageResource(R.drawable.newmember);
 //        mainIcon.setImageResource(listingMembers.getCr_gender().equals("1") ? R.drawable.malebabyicon : R.drawable.femalebabyicon);
         viewHolder.itemView.setOnClickListener(view -> onItemClickListener.onItemClick(this.listingMembers.get(position)));
     }

@@ -451,6 +451,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(ListingMembersTable.COLUMN_CELL_NO, listingMembers.getCellNo());
             values.put(ListingMembersTable.COLUMN_PW_NAME, listingMembers.getPwName());
             values.put(ListingMembersTable.COLUMN_CHILD_NAME, listingMembers.getChildName());
+            values.put(ListingMembersTable.COLUMN_NEW_MEMBER_NAME, listingMembers.getNewMemberName());
 
             long rowID = db.insert(ListingMembersTable.TABLE_NAME, null, values);
             if (rowID != -1) insertCount++;
@@ -662,13 +663,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /*Open form from list OnClick*/
-    public ListingMembers getSelectedMembers(String head, String pwName, String childName) throws JSONException {
+    public ListingMembers getSelectedMembers(String head, String pwName, String childName, String newMember) throws JSONException {
         SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
         Cursor c;
         String[] columns = null;
         String whereClause = ListingMembersTable.COLUMN_HEAD + " = ? AND " +
-                ListingMembersTable.COLUMN_PW_NAME + " = ? AND " + ListingMembersTable.COLUMN_CHILD_NAME + " = ? ";
-        String[] whereArgs = new String[]{head, pwName, childName};
+                ListingMembersTable.COLUMN_PW_NAME + " = ? AND " + ListingMembersTable.COLUMN_CHILD_NAME + " = ? AND " +
+                ListingMembersTable.COLUMN_NEW_MEMBER_NAME + " = ?";
+        String[] whereArgs = new String[]{head, pwName, childName, newMember};
         String groupBy = null;
         String having = null;
         String orderBy = ListingMembersTable.COLUMN_HHID + ", " + ListingMembersTable.COLUMN_R_TYPE + " ASC";

@@ -21,6 +21,7 @@ class ListingMembers {
     var cellNo: String = _EMPTY_
     var pwName: String = _EMPTY_
     var childName: String = _EMPTY_
+    var newMemberName: String = _EMPTY_
 
     constructor() {
         // Default Constructor
@@ -38,6 +39,7 @@ class ListingMembers {
         cellNo = jsonObject.getString(ListingMembersTable.COLUMN_CELL_NO)
         pwName = jsonObject.getString(ListingMembersTable.COLUMN_PW_NAME)
         childName = jsonObject.getString(ListingMembersTable.COLUMN_CHILD_NAME)
+        newMemberName = jsonObject.getString(ListingMembersTable.COLUMN_NEW_MEMBER_NAME)
         return this
     }
 
@@ -62,6 +64,8 @@ class ListingMembers {
             cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_PW_NAME))
         childName =
             cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_CHILD_NAME))
+        newMemberName =
+            cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_NEW_MEMBER_NAME))
         return this
     }
 }

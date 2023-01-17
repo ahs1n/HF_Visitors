@@ -38,6 +38,7 @@ public class TableContracts {
         public static final String COLUMN_CELL_NO = "cellno";
         public static final String COLUMN_PW_NAME = "pwname";
         public static final String COLUMN_CHILD_NAME = "childname";
+        public static final String COLUMN_NEW_MEMBER_NAME = "newmember";
     }
 
     public static abstract class UsersTable implements BaseColumns {
