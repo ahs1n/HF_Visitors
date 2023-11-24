@@ -663,14 +663,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /*Open form from list OnClick*/
-    public ListingMembers getSelectedMembers(String head, String pwName, String childName, String newMember) throws JSONException {
+    public ListingMembers getSelectedMembers(String hhid, String head, String pwName, String childName, String newMember) throws JSONException {
         SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
         Cursor c;
         String[] columns = null;
-        String whereClause = ListingMembersTable.COLUMN_HEAD + " = ? AND " +
+        String whereClause = ListingMembersTable.COLUMN_HHID + " = ? AND " + ListingMembersTable.COLUMN_HEAD + " = ? AND " +
                 ListingMembersTable.COLUMN_PW_NAME + " = ? AND " + ListingMembersTable.COLUMN_CHILD_NAME + " = ? AND " +
                 ListingMembersTable.COLUMN_NEW_MEMBER_NAME + " = ?";
-        String[] whereArgs = new String[]{head, pwName, childName, newMember};
+        String[] whereArgs = new String[]{hhid, head, pwName, childName, newMember};
         String groupBy = null;
         String having = null;
         String orderBy = ListingMembersTable.COLUMN_HHID + ", " + ListingMembersTable.COLUMN_R_TYPE + " ASC";
