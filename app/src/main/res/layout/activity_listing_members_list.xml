@@ -80,6 +80,14 @@
                             android:textColor="@color/grayDark" />
 
                         <RadioButton
+                            android:id="@+id/searchByHHID"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="HHID"
+                            android:textColor="@color/black" />
+
+                        <RadioButton
                             android:id="@+id/searchByHead"
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -140,7 +148,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_22sdp"
                         android:layout_weight="1"
-                        android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890 "
+                        android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890- "
                         android:hint="Searh Patient"
                         android:importantForAutofill="no"
                         android:inputType="text"

@@ -96,7 +96,11 @@ public class ListingMembersListActivity extends AppCompatActivity {
         bi.searchBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (bi.searchByHead.isChecked()) {
+                if (bi.searchByHHID.isChecked()) {
+                    bi.memberId.setText(null);
+                    bi.memberId.setHint("HHID");
+                }
+                else if (bi.searchByHead.isChecked()) {
                     bi.memberId.setText(null);
                     bi.memberId.setHint("HH Head Name");
                 } else if (bi.searchByChild.isChecked()) {
@@ -202,7 +206,10 @@ public class ListingMembersListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (bi.searchByCell.isChecked()) {
+                if (bi.searchByHHID.isChecked()) {
+                    registeredMembersAdapter.filterByHHID(s.toString());
+                }
+                else if (bi.searchByCell.isChecked()) {
                     registeredMembersAdapter.filterByCell(s.toString());
                 } else if (bi.searchByChild.isChecked()) {
                     registeredMembersAdapter.filterByChild(s.toString());
@@ -213,7 +220,10 @@ public class ListingMembersListActivity extends AppCompatActivity {
         bi.memberId.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (bi.searchByCell.isChecked()) {
+                if (bi.searchByHHID.isChecked()) {
+                    registeredMembersAdapter.filterByHHID(v.getText().toString());
+                }
+                else if (bi.searchByCell.isChecked()) {
                     registeredMembersAdapter.filterByCell(v.getText().toString());
                 } else if (bi.searchByChild.isChecked()) {
                     registeredMembersAdapter.filterByChild(v.getText().toString());

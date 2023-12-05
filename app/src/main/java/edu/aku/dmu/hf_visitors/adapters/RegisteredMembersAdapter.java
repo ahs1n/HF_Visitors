@@ -106,6 +106,24 @@ public class RegisteredMembersAdapter extends RecyclerView.Adapter<RegisteredMem
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterByHHID(String query) {
+        if (query.equals("")) {
+            // Show original list
+            listingMembers.clear();
+            listingMembers.addAll(backupItems);
+            notifyDataSetChanged();
+        } else {
+            listingMembers.clear();
+            for (ListingMembers listingMembers : backupItems) {
+                if (listingMembers.getHhid().contains(query)) {
+                    this.listingMembers.add(listingMembers);
+                }
+            }
+            notifyDataSetChanged();
+        }
+    }
+
 
     @SuppressLint("LongLogTag")
     @Override
