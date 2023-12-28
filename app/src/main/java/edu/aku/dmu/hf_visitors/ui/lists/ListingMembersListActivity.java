@@ -99,10 +99,12 @@ public class ListingMembersListActivity extends AppCompatActivity {
                 if (bi.searchByHHID.isChecked()) {
                     bi.memberId.setText(null);
                     bi.memberId.setHint("HHID");
-                }
-                else if (bi.searchByHead.isChecked()) {
+                } else if (bi.searchByHead.isChecked()) {
                     bi.memberId.setText(null);
                     bi.memberId.setHint("HH Head Name");
+                } else if (bi.searchBynewMember.isChecked()) {
+                    bi.memberId.setText(null);
+                    bi.memberId.setHint("New Member Name");
                 } else if (bi.searchByChild.isChecked()) {
                     bi.memberId.setText(null);
                     bi.memberId.setHint("Child Name");
@@ -208,11 +210,12 @@ public class ListingMembersListActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (bi.searchByHHID.isChecked()) {
                     registeredMembersAdapter.filterByHHID(s.toString());
-                }
-                else if (bi.searchByCell.isChecked()) {
+                } else if (bi.searchByCell.isChecked()) {
                     registeredMembersAdapter.filterByCell(s.toString());
                 } else if (bi.searchByChild.isChecked()) {
                     registeredMembersAdapter.filterByChild(s.toString());
+                } else if (bi.searchBynewMember.isChecked()) {
+                    registeredMembersAdapter.filterByNewMember(s.toString());
                 } else registeredMembersAdapter.filterByHead(s.toString());
             }
         });
@@ -222,8 +225,7 @@ public class ListingMembersListActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (bi.searchByHHID.isChecked()) {
                     registeredMembersAdapter.filterByHHID(v.getText().toString());
-                }
-                else if (bi.searchByCell.isChecked()) {
+                } else if (bi.searchByCell.isChecked()) {
                     registeredMembersAdapter.filterByCell(v.getText().toString());
                 } else if (bi.searchByChild.isChecked()) {
                     registeredMembersAdapter.filterByChild(v.getText().toString());

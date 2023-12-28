@@ -59,39 +59,42 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_35sdp"
                     android:orientation="vertical"
+                    android:background="@color/colorAccentLightOverlay"
                     android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Select one for filter "
+                        android:textColor="@color/grayDark"
+                        android:textSize="@dimen/_10sdp" />
 
                     <RadioGroup
                         android:id="@+id/searchBy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorAccentLightOverlay"
                         android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorAccentLightOverlay"
-                            android:gravity="center"
-                            android:text="Select one for filter "
-                            android:textColor="@color/grayDark" />
 
                         <RadioButton
                             android:id="@+id/searchByHHID"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="HHID"
                             android:textColor="@color/black" />
+
+                        <View
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="match_parent" />
 
                         <RadioButton
                             android:id="@+id/searchByHead"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="HH Head"
                             android:textColor="@color/black" />
 
@@ -114,18 +117,24 @@
                         <RadioButton
                             android:id="@+id/searchByCell"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="Cell No"
+                            android:textColor="@color/black" />
+
+                        <View
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="match_parent" />
+
+                        <RadioButton
+                            android:id="@+id/searchBynewMember"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.4"
+                            android:text="New Member"
                             android:textColor="@color/black" />
                     </RadioGroup>
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@color/grayLight" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -134,7 +143,8 @@
                     android:gravity="center"
                     android:text="You can search Patient with Name and Cell Number"
                     android:textColor="@color/grayDark"
-                    android:textSize="@dimen/_10sdp" />
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
