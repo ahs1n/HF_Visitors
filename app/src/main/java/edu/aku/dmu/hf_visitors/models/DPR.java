@@ -48,12 +48,17 @@ public class DPR extends BaseObservable {
 
     //  Section DPR
     private String hf01 = _EMPTY_;
+    private String hf01a = _EMPTY_;
+    private String hf01b = _EMPTY_;
     private String hf02 = _EMPTY_;
+    private String hf02a = _EMPTY_;
     private String hf03 = _EMPTY_;
     private String hf04 = _EMPTY_;
     private String hf05 = _EMPTY_;
     private String hf06 = _EMPTY_;
+    private String hf06a = _EMPTY_;
     private String hf07 = _EMPTY_;
+    private String hf07a = _EMPTY_;
     private String hf08 = _EMPTY_;
     private String hf09m = _EMPTY_;
     private String hf09y = _EMPTY_;
@@ -220,6 +225,26 @@ public class DPR extends BaseObservable {
     }
 
     @Bindable
+    public String getHf01a() {
+        return hf01a;
+    }
+
+    public void setHf01a(String hf01a) {
+        this.hf01a = hf01a;
+        notifyPropertyChanged(BR.hf01a);
+    }
+
+    @Bindable
+    public String getHf01b() {
+        return hf01b;
+    }
+
+    public void setHf01b(String hf01b) {
+        this.hf01b = hf01b;
+        notifyPropertyChanged(BR.hf01b);
+    }
+
+    @Bindable
     public String getHf02() {
         return hf02;
     }
@@ -227,6 +252,16 @@ public class DPR extends BaseObservable {
     public void setHf02(String hf02) {
         this.hf02 = hf02;
         notifyPropertyChanged(BR.hf02);
+    }
+
+    @Bindable
+    public String getHf02a() {
+        return hf02a;
+    }
+
+    public void setHf02a(String hf02a) {
+        this.hf02a = hf02a;
+        notifyPropertyChanged(BR.hf02a);
     }
 
     @Bindable
@@ -270,6 +305,16 @@ public class DPR extends BaseObservable {
     }
 
     @Bindable
+    public String getHf06a() {
+        return hf06a;
+    }
+
+    public void setHf06a(String hf06a) {
+        this.hf06a = hf06a;
+        notifyPropertyChanged(BR.hf06a);
+    }
+
+    @Bindable
     public String getHf07() {
         return hf07;
     }
@@ -277,6 +322,16 @@ public class DPR extends BaseObservable {
     public void setHf07(String hf07) {
         this.hf07 = hf07;
         notifyPropertyChanged(BR.hf07);
+    }
+
+    @Bindable
+    public String getHf07a() {
+        return hf07a;
+    }
+
+    public void setHf07a(String hf07a) {
+        this.hf07a = hf07a;
+        notifyPropertyChanged(BR.hf07a);
     }
 
     @Bindable
@@ -336,12 +391,17 @@ public class DPR extends BaseObservable {
             JSONObject json = null;
             json = new JSONObject(string);
             this.hf01 = json.getString("hf01");
+            this.hf01a = json.getString("hf01a");
+            this.hf01b = json.getString("hf01b");
             this.hf02 = json.getString("hf02");
+            this.hf02a = json.getString("hf02a");
             this.hf03 = json.getString("hf03");
             this.hf04 = json.getString("hf04");
             this.hf05 = json.getString("hf05");
             this.hf06 = json.getString("hf06");
+            this.hf06a = json.getString("hf06a");
             this.hf07 = json.getString("hf07");
+            this.hf07a = json.getString("hf07a");
             this.hf08 = json.getString("gender");
             this.hf09m = json.getString("agem");
             this.hf09y = json.getString("agey");
@@ -354,12 +414,17 @@ public class DPR extends BaseObservable {
         JSONObject json = new JSONObject();
 
         json.put("hf01", hf01)
+                .put("hf01a", hf01a)
+                .put("hf01b", hf01b)
                 .put("hf02", hf02)
+                .put("hf02a", hf02a)
                 .put("hf03", hf03)
                 .put("hf04", hf04)
                 .put("hf05", hf05)
                 .put("hf06", hf06)
+                .put("hf06a", hf06a)
                 .put("hf07", hf07)
+                .put("hf07a", hf07a)
                 .put("gender", hf08)
                 .put("agem", hf09m)
                 .put("agey", hf09y);

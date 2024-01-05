@@ -79,13 +79,18 @@
     <string name="istatus96">Other (specify)</string>
 
     <string name="hf01">تاریخ</string>
+    <string name="hf01a">علاقے کا کوڈ</string>
+    <string name="hf01b">یوسی کا نام</string>
     <string name="hf02"> خانداندان کا نمبر</string>
+    <string name="hf02a">شناختی کارڈ نمبر</string>
     <string name="hf03">گھرانے کے سربراہ کا نام؟</string>
     <string name="hf04">گھر کے سربراہ کا موبائل نمبرر</string>
     <string name="hf05">نام</string>
     <string name="hf06">ڈی پی آر نمبر</string>
+    <string name="hf06a">پولیو ورکر کا نام</string>
     <string name="hf06Info">برائے مہربانی HF06 کے سامنے نظر آنے والا کوڈ فارم پر لکھ کر سرکل کرنا نہ بھولیں</string>
     <string name="hf07">گھر کا پتہ</string>
+    <string name="hf07a">لینڈ مارک شامل کریں</string>
     <string name="hf08">جنس</string>
     <string name="hf0801">لڑکا</string>
     <string name="hf0802">لڑکی</string>
@@ -94,12 +99,17 @@
     <string name="hf09m">مہینہ</string>
 
     <string name='Q_hf01'>hf01</string>
+    <string name='Q_hf01a'>hf01a</string>
+    <string name='Q_hf01b'>hf01b</string>
     <string name='Q_hf02'>hf02</string>
+    <string name='Q_hf02a'>hf02a</string>
     <string name='Q_hf03'>hf03</string>
     <string name='Q_hf04'>hf04</string>
     <string name='Q_hf05'>hf05</string>
     <string name='Q_hf06'>hf06</string>
     <string name='Q_hf07'>hf07</string>
+    <string name='Q_hf06a'>hf06a</string>
+    <string name='Q_hf07a'>hf07a</string>
     <string name='Q_hf08'>hf08</string>
     <string name='Q_hf09'>hf09</string>
 

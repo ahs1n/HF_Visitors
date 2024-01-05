@@ -49,6 +49,7 @@ import java.util.concurrent.TimeUnit;
 
 import edu.aku.dmu.hf_visitors.R;
 import edu.aku.dmu.hf_visitors.adapters.SyncListAdapter;
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.ClustersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.EntryLogTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.UsersTable;
@@ -190,6 +191,9 @@ public class SyncActivity extends AppCompatActivity {
                     select = " * ";
                     filter = " hf_code = '" + MainApp.user.getHfcode() + "' ";
                     downloadTables.add(new SyncModel(ListingMembersTable.TABLE_NAME, select, filter));
+
+                    filter = " hf_code = '" + MainApp.user.getHfcode() + "' AND (colflag is null or colflag=0)";
+                    downloadTables.add(new SyncModel(ClustersTable.TABLE_NAME, select, filter));
                 }
 
                 MainApp.downloadData = new String[downloadTables.size()];

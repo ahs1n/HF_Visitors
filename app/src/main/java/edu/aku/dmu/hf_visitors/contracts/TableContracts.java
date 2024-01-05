@@ -86,4 +86,17 @@ public class TableContracts {
         public static final String COLUMN_ISTATUS = "istatus";
         public static final String COLUMN_ISTATUS96x = "istatus96x";
     }
+
+    public static abstract class ClustersTable implements BaseColumns {
+        public static final String TABLE_NAME = "Clusters";
+        public static final String COLUMN_ID = "_id";
+        public static final String COLUMN_CLUSTER_NO = "cluster_no";
+        public static final String COLUMN_DIST_ID = "dist_id";
+        public static final String COLUMN_DIST = "district";
+        public static final String COLUMN_PROVINCE = "province";
+        public static final String COLUMN_CITY = "city";
+        public static final String COLUMN_AREA = "area";
+        public static final String COLUMN_EB_CODE = "ebcode";
+        public static final String COLUMN_HF_CODE = "hf_code";
+    }
 }

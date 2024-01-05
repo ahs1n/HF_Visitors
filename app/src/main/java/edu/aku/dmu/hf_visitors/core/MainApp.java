@@ -82,6 +82,8 @@ public class MainApp extends Application {
     static ToneGenerator toneGen1;
     public static String tabID = "";
     public static int dprNO = 0;
+    public static String selectedAreaName;
+    public static String selectedClusterCode;
 
     public static void hideSystemUI(View decorView) {
         // Enables regular immersive mode.

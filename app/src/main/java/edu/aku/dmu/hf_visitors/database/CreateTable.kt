@@ -101,4 +101,18 @@ object CreateTable {
             + EntryLogTable.COLUMN_APPVERSION + " TEXT"
             + " );"
             )
+
+    const val SQL_CREATE_CLUSTERS = ("CREATE TABLE "
+            + ClustersTable.TABLE_NAME + "("
+            + ClustersTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + ClustersTable.COLUMN_CLUSTER_NO + " TEXT,"
+            + ClustersTable.COLUMN_DIST_ID + " TEXT,"
+            + ClustersTable.COLUMN_DIST + " TEXT,"
+            + ClustersTable.COLUMN_PROVINCE + " TEXT,"
+            + ClustersTable.COLUMN_CITY + " TEXT,"
+            + ClustersTable.COLUMN_AREA + " TEXT,"
+            + ClustersTable.COLUMN_EB_CODE + " TEXT,"
+            + ClustersTable.COLUMN_HF_CODE + " TEXT"
+            + " );"
+            )
 }

@@ -1,5 +1,6 @@
 package edu.aku.dmu.hf_visitors.ui.sections;
 
+import static edu.aku.dmu.hf_visitors.core.MainApp._EMPTY_;
 import static edu.aku.dmu.hf_visitors.core.MainApp.dpr;
 import static edu.aku.dmu.hf_visitors.core.MainApp.listingMembers;
 import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
@@ -7,6 +8,8 @@ import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,8 @@ import com.validatorcrawler.aliazaz.Validator;
 import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
@@ -25,6 +30,7 @@ import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.database.DatabaseHelper;
 import edu.aku.dmu.hf_visitors.databinding.ActivitySectionVisitorsBinding;
+import edu.aku.dmu.hf_visitors.models.Clusters;
 import edu.aku.dmu.hf_visitors.models.DPR;
 
 public class SectionVisitorsActivity extends AppCompatActivity {
@@ -33,6 +39,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
     ActivitySectionVisitorsBinding bi;
     String st = "";
     private DatabaseHelper db;
+    private ArrayList<String> areaNames, clustersCodes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
         MainApp.dpr = new DPR();
         bi.setForm(dpr);
         checkTodayDate();
+        populateSpinner();
 
         boolean isNew = getIntent().getBooleanExtra("new", false);
 
@@ -88,6 +96,56 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 //        MainApp.dprNO++;
         bi.hf06.setText(new StringBuilder().append(sharedPref.getString("tabID", "")).append(MainApp.dprNO).toString());
         dpr.setHf06(sharedPref.getString("tabID", "") + MainApp.dprNO);
+    }
+
+    private void populateSpinner() {
+        Collection<Clusters> clusters = db.getClustersByHF(MainApp.user.getHfcode());
+
+        areaNames = new ArrayList<>();
+        clustersCodes = new ArrayList<>();
+        areaNames.add("...");
+        clustersCodes.add("...");
+
+        for (Clusters c : clusters) {
+            areaNames.add(c.getArea());
+            clustersCodes.add(c.getClusterNo());
+        }
+
+        if (MainApp.user.getUserName().contains("test") || MainApp.user.getUserName().contains("dmu")) {
+            areaNames.add("Test Area 1");
+            areaNames.add("Test Area 2");
+            areaNames.add("Test Area 3");
+            clustersCodes.add("001");
+            clustersCodes.add("002");
+            clustersCodes.add("003");
+        }
+        // Apply the adapter to the spinner
+        bi.hf01a.setAdapter(new ArrayAdapter<>(SectionVisitorsActivity.this, R.layout.custom_spinner, areaNames));
+
+        bi.hf01a.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if (position != 0) {
+                    MainApp.selectedAreaName = (areaNames.get(bi.hf01a.getSelectedItemPosition()));
+                    MainApp.selectedClusterCode = (clustersCodes.get(bi.hf01a.getSelectedItemPosition()));
+                    if (dpr != null) {
+                        dpr.setHf01a(MainApp.selectedAreaName);
+
+                        if (MainApp.selectedAreaName.equals("Out of UC Area")) {
+                            bi.fldGrpCVhf01b.setVisibility(View.VISIBLE);
+                        } else {
+                            dpr.setHf01b(_EMPTY_);
+                            bi.fldGrpCVhf01b.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void checkTodayDate() {

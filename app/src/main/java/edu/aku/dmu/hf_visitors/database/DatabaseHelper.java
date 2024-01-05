@@ -3,6 +3,7 @@ package edu.aku.dmu.hf_visitors.database;
 import static edu.aku.dmu.hf_visitors.core.MainApp.IBAHC;
 import static edu.aku.dmu.hf_visitors.core.MainApp.PROJECT_NAME;
 import static edu.aku.dmu.hf_visitors.core.UserAuth.checkPassword;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_CLUSTERS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ENTRYLOGS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ListingMembers;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_USERS;
@@ -28,14 +29,17 @@ import org.json.JSONObject;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.ClustersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.EntryLogTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.UsersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
+import edu.aku.dmu.hf_visitors.models.Clusters;
 import edu.aku.dmu.hf_visitors.models.DPR;
 import edu.aku.dmu.hf_visitors.models.EntryLog;
 import edu.aku.dmu.hf_visitors.models.ListingMembers;
@@ -49,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = PROJECT_NAME + ".db";
     public static final String DATABASE_COPY = PROJECT_NAME + "_copy.db";
     public static final String DATABASE_PASSWORD = IBAHC;
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private final String TAG = "DatabaseHelper";
     private final Context mContext;
 
@@ -65,6 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_ListingMembers);
         db.execSQL(SQL_CREATE_VERSIONAPP);
         db.execSQL(SQL_CREATE_ENTRYLOGS);
+        db.execSQL(SQL_CREATE_CLUSTERS);
 
     }
 
@@ -72,9 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         switch (oldVersion) {
             case 1:
-                /*db.execSQL(SQL_ALTER_USERS_ENABLED);
-                db.execSQL(SQL_ALTER_USERS_ISNEW_USER);
-                db.execSQL(SQL_ALTER_USERS_PWD_EXPIRY);*/
+                db.execSQL(SQL_CREATE_CLUSTERS);
         }
     }
 
@@ -428,6 +431,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return insertCount;
     }
 
+    public int syncClusters(JSONArray clustersList) throws JSONException {
+        SQLiteDatabase db = this.getWritableDatabase(DATABASE_PASSWORD);
+        db.delete(ClustersTable.TABLE_NAME, null, null);
+        int insertCount = 0;
+        for (int i = 0; i < clustersList.length(); i++) {
+
+            JSONObject jsonObjectCluster = clustersList.getJSONObject(i);
+
+            Clusters clusters = new Clusters();
+            clusters.sync(jsonObjectCluster);
+            ContentValues values = new ContentValues();
+
+            values.put(ClustersTable.COLUMN_CLUSTER_NO, clusters.getClusterNo());
+            values.put(ClustersTable.COLUMN_DIST_ID, clusters.getDist_id());
+            values.put(ClustersTable.COLUMN_DIST, clusters.getDist());
+            values.put(ClustersTable.COLUMN_PROVINCE, clusters.getProvince());
+            values.put(ClustersTable.COLUMN_CITY, clusters.getCity());
+            values.put(ClustersTable.COLUMN_AREA, clusters.getArea());
+            values.put(ClustersTable.COLUMN_EB_CODE, clusters.getEbCode());
+            values.put(ClustersTable.COLUMN_HF_CODE, clusters.getHfcode());
+            long rowID = db.insert(ClustersTable.TABLE_NAME, null, values);
+            if (rowID != -1) insertCount++;
+        }
+        return insertCount;
+    }
+
     /*Sync ListingMembers*/
     public int synclistvisitor(JSONArray formCR) throws JSONException {
         SQLiteDatabase db = this.getWritableDatabase(DATABASE_PASSWORD);
@@ -751,5 +780,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         c.close();
         return allForm;
+    }
+
+    public Collection<Clusters> getClustersByHF(String hfCode) {
+
+        SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
+        Cursor c = null;
+        String[] columns = null;
+        String whereClause = ClustersTable.COLUMN_HF_CODE + " = ? ";
+        String[] whereArgs = {hfCode};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy = ClustersTable.COLUMN_HF_CODE + " ASC";
+        List<Clusters> clusters = new ArrayList<>();
+
+        c = db.query(
+                ClustersTable.TABLE_NAME,  // The table to query
+                columns,                   // The columns to return
+                whereClause,               // The columns for the WHERE clause
+                whereArgs,                 // The values for the WHERE clause
+                groupBy,                   // don't group the rows
+                having,                    // don't filter by row groups
+                orderBy                    // The sort order
+        );
+        while (c.moveToNext()) {
+            clusters.add(new Clusters().hydrate(c));
+        }
+        return clusters;
     }
 }
