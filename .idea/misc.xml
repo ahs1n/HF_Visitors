@@ -25,7 +25,7 @@
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_main.xml" value="0.305" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_registered_list_child.xml" value="0.305" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_section_dpr.xml" value="0.3025" />
-        <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_section_visitors.xml" value="0.18416666666666667" />
+        <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/activity_section_visitors.xml" value="0.1859375" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/custom_spinner.xml" value="0.1859375" />
         <entry key="..\:/Android Office Work/HF_Visitors/app/src/main/res/layout/registered_member_row.xml" value="0.33" />
         <entry key="..\:/Android/EPI_Register/app/src/main/res/drawable/ic_item_right_arrow.xml" value="0.5875" />
@@ -38,7 +38,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

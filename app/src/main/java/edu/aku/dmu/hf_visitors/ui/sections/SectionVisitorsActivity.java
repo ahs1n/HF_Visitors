@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.validatorcrawler.aliazaz.Validator;
@@ -57,12 +58,22 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 
         if (!isNew) {
             dpr.setUuid(listingMembers.getUID());
-            bi.hf02.setText(listingMembers.getHhid());
+//            bi.hf02.setText(listingMembers.getHhid());
+            bi.hf02.setEnabled(false);
+            bi.hf02.setTextColor(ContextCompat.getColor(this, R.color.redDark));
             dpr.setHf02(listingMembers.getHhid());
-            bi.hf03.setText(listingMembers.getHead());
+//            bi.hf03.setText(listingMembers.getHead());
             dpr.setHf03(listingMembers.getHead());
-            bi.hf04.setText(listingMembers.getCellNo());
+//            bi.hf04.setText(listingMembers.getCellNo());
             dpr.setHf04(listingMembers.getCellNo());
+            /*TODO:
+            need to set spinner
+            * */
+//            dpr.setHf01a(listingMembers.getHf01a());
+            dpr.setHf01b(listingMembers.getHf01b());
+            dpr.setHf02a(listingMembers.getHf02a());
+            dpr.setHf06a(listingMembers.getHf06a());
+            dpr.setHf07a(listingMembers.getHf07a());
 
             if (!listingMembers.getPwName().equals("")) {
                 bi.hf05.setText(listingMembers.getPwName());
@@ -85,7 +96,6 @@ public class SectionVisitorsActivity extends AppCompatActivity {
                 bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
                 bi.fldGrpCVhf09.setVisibility(View.VISIBLE);
             }
-
         } else {
             dpr.setFlag("3");
             bi.fldGrpCVhf07.setVisibility(View.VISIBLE);

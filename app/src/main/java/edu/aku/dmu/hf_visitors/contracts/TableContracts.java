@@ -39,6 +39,11 @@ public class TableContracts {
         public static final String COLUMN_PW_NAME = "pwname";
         public static final String COLUMN_CHILD_NAME = "childname";
         public static final String COLUMN_NEW_MEMBER_NAME = "newmember";
+        public static final String COLUMN_HF01A = "hf01a";
+        public static final String COLUMN_HF01B = "hf01b";
+        public static final String COLUMN_HF02A = "hf02a";
+        public static final String COLUMN_HF06A = "hf06a";
+        public static final String COLUMN_HF07A = "hf07a";
     }
 
     public static abstract class UsersTable implements BaseColumns {

@@ -38,7 +38,12 @@ object CreateTable {
             + ListingMembersTable.COLUMN_CELL_NO + " TEXT,"
             + ListingMembersTable.COLUMN_PW_NAME + " TEXT,"
             + ListingMembersTable.COLUMN_CHILD_NAME + " TEXT,"
-            + ListingMembersTable.COLUMN_NEW_MEMBER_NAME + " TEXT"
+            + ListingMembersTable.COLUMN_NEW_MEMBER_NAME + " TEXT,"
+            + ListingMembersTable.COLUMN_HF01A + " TEXT,"
+            + ListingMembersTable.COLUMN_HF01B + " TEXT,"
+            + ListingMembersTable.COLUMN_HF02A + " TEXT,"
+            + ListingMembersTable.COLUMN_HF06A + " TEXT,"
+            + ListingMembersTable.COLUMN_HF07A + " TEXT"
             + " );"
             )
 
@@ -115,4 +120,24 @@ object CreateTable {
             + ClustersTable.COLUMN_HF_CODE + " TEXT"
             + " );"
             )
+
+    const val SQL_ALTER_ADD_hf01a = ("ALTER TABLE "
+            + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
+            + ListingMembersTable.COLUMN_HF01A + " TEXT;")
+
+    const val SQL_ALTER_ADD_hf01b = ("ALTER TABLE "
+            + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
+            + ListingMembersTable.COLUMN_HF01B + " TEXT;")
+
+    const val SQL_ALTER_ADD_hf02a = ("ALTER TABLE "
+            + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
+            + ListingMembersTable.COLUMN_HF02A + " TEXT;")
+
+    const val SQL_ALTER_ADD_hf06a = ("ALTER TABLE "
+            + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
+            + ListingMembersTable.COLUMN_HF06A + " TEXT;")
+
+    const val SQL_ALTER_ADD_hf07a = ("ALTER TABLE "
+            + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
+            + ListingMembersTable.COLUMN_HF07A + " TEXT;")
 }

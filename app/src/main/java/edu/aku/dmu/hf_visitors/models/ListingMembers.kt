@@ -22,6 +22,11 @@ class ListingMembers {
     var pwName: String = _EMPTY_
     var childName: String = _EMPTY_
     var newMemberName: String = _EMPTY_
+    var hf01a: String = _EMPTY_
+    var hf01b: String = _EMPTY_
+    var hf02a: String = _EMPTY_
+    var hf06a: String = _EMPTY_
+    var hf07a: String = _EMPTY_
 
     constructor() {
         // Default Constructor
@@ -40,6 +45,11 @@ class ListingMembers {
         pwName = jsonObject.getString(ListingMembersTable.COLUMN_PW_NAME)
         childName = jsonObject.getString(ListingMembersTable.COLUMN_CHILD_NAME)
         newMemberName = jsonObject.getString(ListingMembersTable.COLUMN_NEW_MEMBER_NAME)
+        hf01a = jsonObject.getString(ListingMembersTable.COLUMN_HF01A)
+        hf01b = jsonObject.getString(ListingMembersTable.COLUMN_HF01B)
+        hf02a = jsonObject.getString(ListingMembersTable.COLUMN_HF02A)
+        hf06a = jsonObject.getString(ListingMembersTable.COLUMN_HF06A)
+        hf07a = jsonObject.getString(ListingMembersTable.COLUMN_HF07A)
         return this
     }
 
@@ -66,6 +76,16 @@ class ListingMembers {
             cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_CHILD_NAME))
         newMemberName =
             cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_NEW_MEMBER_NAME))
+        hf01a =
+            cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_HF01A))
+        hf01b =
+            cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_HF01B))
+        hf02a =
+            cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_HF02A))
+        hf06a =
+            cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_HF06A))
+        hf07a =
+            cursor.getString(cursor.getColumnIndexOrThrow(ListingMembersTable.COLUMN_HF07A))
         return this
     }
 }

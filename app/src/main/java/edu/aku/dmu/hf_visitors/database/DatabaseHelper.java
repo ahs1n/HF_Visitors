@@ -3,6 +3,11 @@ package edu.aku.dmu.hf_visitors.database;
 import static edu.aku.dmu.hf_visitors.core.MainApp.IBAHC;
 import static edu.aku.dmu.hf_visitors.core.MainApp.PROJECT_NAME;
 import static edu.aku.dmu.hf_visitors.core.UserAuth.checkPassword;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf01a;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf01b;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf02a;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf06a;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf07a;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_CLUSTERS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ENTRYLOGS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ListingMembers;
@@ -78,6 +83,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         switch (oldVersion) {
             case 1:
                 db.execSQL(SQL_CREATE_CLUSTERS);
+            case 2:
+                db.execSQL(SQL_ALTER_ADD_hf01a);
+                db.execSQL(SQL_ALTER_ADD_hf01b);
+                db.execSQL(SQL_ALTER_ADD_hf02a);
+                db.execSQL(SQL_ALTER_ADD_hf06a);
+                db.execSQL(SQL_ALTER_ADD_hf07a);
         }
     }
 
@@ -481,6 +492,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(ListingMembersTable.COLUMN_PW_NAME, listingMembers.getPwName());
             values.put(ListingMembersTable.COLUMN_CHILD_NAME, listingMembers.getChildName());
             values.put(ListingMembersTable.COLUMN_NEW_MEMBER_NAME, listingMembers.getNewMemberName());
+            values.put(ListingMembersTable.COLUMN_HF01A, listingMembers.getHf01a());
+            values.put(ListingMembersTable.COLUMN_HF01B, listingMembers.getHf01b());
+            values.put(ListingMembersTable.COLUMN_HF02A, listingMembers.getHf02a());
+            values.put(ListingMembersTable.COLUMN_HF06A, listingMembers.getHf06a());
+            values.put(ListingMembersTable.COLUMN_HF07A, listingMembers.getHf07a());
 
             long rowID = db.insert(ListingMembersTable.TABLE_NAME, null, values);
             if (rowID != -1) insertCount++;
