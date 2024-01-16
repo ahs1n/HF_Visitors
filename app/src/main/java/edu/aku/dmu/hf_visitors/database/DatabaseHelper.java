@@ -2,6 +2,7 @@ package edu.aku.dmu.hf_visitors.database;
 
 import static edu.aku.dmu.hf_visitors.core.MainApp.IBAHC;
 import static edu.aku.dmu.hf_visitors.core.MainApp.PROJECT_NAME;
+import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
 import static edu.aku.dmu.hf_visitors.core.UserAuth.checkPassword;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf01a;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf01b;
@@ -11,6 +12,7 @@ import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_ALTER_ADD_hf07a;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_CLUSTERS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ENTRYLOGS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_ListingMembers;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_N_FAMILY_MAX;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_USERS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VERSIONAPP;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VISITORS;
@@ -22,6 +24,9 @@ import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteException;
@@ -36,8 +41,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
+import edu.aku.dmu.hf_visitors.contracts.TableContracts;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ClustersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.EntryLogTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable;
@@ -48,6 +56,7 @@ import edu.aku.dmu.hf_visitors.models.Clusters;
 import edu.aku.dmu.hf_visitors.models.DPR;
 import edu.aku.dmu.hf_visitors.models.EntryLog;
 import edu.aku.dmu.hf_visitors.models.ListingMembers;
+import edu.aku.dmu.hf_visitors.models.NFamilyMax;
 import edu.aku.dmu.hf_visitors.models.Users;
 
 /**
@@ -58,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = PROJECT_NAME + ".db";
     public static final String DATABASE_COPY = PROJECT_NAME + "_copy.db";
     public static final String DATABASE_PASSWORD = IBAHC;
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private final String TAG = "DatabaseHelper";
     private final Context mContext;
 
@@ -75,6 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_VERSIONAPP);
         db.execSQL(SQL_CREATE_ENTRYLOGS);
         db.execSQL(SQL_CREATE_CLUSTERS);
+        db.execSQL(SQL_CREATE_N_FAMILY_MAX);
 
     }
 
@@ -89,6 +99,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_ALTER_ADD_hf02a);
                 db.execSQL(SQL_ALTER_ADD_hf06a);
                 db.execSQL(SQL_ALTER_ADD_hf07a);
+            case 3:
+                db.execSQL(SQL_CREATE_N_FAMILY_MAX);
         }
     }
 
@@ -824,5 +836,83 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             clusters.add(new Clusters().hydrate(c));
         }
         return clusters;
+    }
+
+    public int syncNEWFAMILYMAX(JSONArray nFamilyMaxList) throws JSONException {
+        Gson gson = new Gson();
+        SQLiteDatabase db = this.getWritableDatabase(DATABASE_PASSWORD);
+        db.delete(TableContracts.NFamilyMaxTable.TABLE_NAME, null, null);
+        int insertCount = 0;
+        HashMap<String, Object> nMaxHMDB = new HashMap<>();
+        for (int i = 0; i < nFamilyMaxList.length(); i++) {
+
+
+            NFamilyMax nMax = gson.fromJson(nFamilyMaxList.getJSONObject(i).toString(), NFamilyMax.class);
+            nMaxHMDB.put(nMax.getCluster_no(), nMax.getNmax() != null && !nMax.getNmax().equals("")? nMax.getNmax() : "0");
+
+            ContentValues values = new ContentValues();
+
+            values.put(TableContracts.NFamilyMaxTable.COLUMN_HF_CODE, nMax.getHf_code());
+            values.put(TableContracts.NFamilyMaxTable.COLUMN_CLUSTER_NO, nMax.getCluster_no());
+            values.put(TableContracts.NFamilyMaxTable.COLUMN_N_MAX, nMax.getNmax() != null && !nMax.getNmax().equals("") ? nMax.getNmax() : "0");
+            long rowID = db.insert(TableContracts.NFamilyMaxTable.TABLE_NAME, null, values);
+            if (rowID != -1) insertCount++;
+        }
+
+        if (nMaxHMDB.size() > 0) {
+            String prevNMaxHM = sharedPref.getString("n_family_max", null);
+            if (prevNMaxHM != null) {
+                HashMap<String, Object> nMaxHMSP = gson.fromJson(prevNMaxHM, new TypeToken<HashMap<String, Object>>() {
+                }.getType());
+                for (int i = 0; i < nMaxHMDB.size(); i++) {
+                    // This check is for the case if any new cluster is added
+                    if (i < nMaxHMSP.size()) {
+                        // Now check which of the number is max. DB or Temporary Storage(Shared Preference).
+                        // Whichever is max just save it
+                        String clusterKeySP = (String) nMaxHMSP.keySet().toArray()[i];
+                        int nMaxValueSP = Integer.parseInt((String) Objects.requireNonNull(nMaxHMSP.get(clusterKeySP)));
+
+                        int nMaxValueDB = Integer.parseInt(getNFamilyMax(MainApp.user.getHfcode(), clusterKeySP));
+                        nMaxHMSP.put(clusterKeySP, Math.max(nMaxValueSP, nMaxValueDB));
+                    } else {
+                        // If there is an additional record which was not present earlier
+                        // then save it
+                        String clusterKeyDB = (String) nMaxHMSP.keySet().toArray()[i];
+                        String nMaxValueDB = (String) Objects.requireNonNull(nMaxHMDB.get(clusterKeyDB));
+                        nMaxHMSP.put(clusterKeyDB, nMaxValueDB);
+                    }
+                }
+            } else {
+                // Save in temporary storage for comparison
+                sharedPref.edit().putString("n_family_max", gson.toJson(nMaxHMDB)).apply();
+            }
+        }
+        return insertCount;
+    }
+
+    /*Open form from list OnClick*/
+    public String getNFamilyMax(String hfCode, String clusterNo) {
+        SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
+        Cursor c;
+        String[] columns = null;
+        String whereClause = TableContracts.NFamilyMaxTable.COLUMN_HF_CODE + " = ? AND "
+                + TableContracts.NFamilyMaxTable.COLUMN_CLUSTER_NO + " = ? ";
+        String[] whereArgs = new String[]{hfCode, clusterNo};
+        String groupBy = null;
+        String having = null;
+        String orderBy = TableContracts.NFamilyMaxTable.COLUMN_ID + " DESC";
+        NFamilyMax nMax = new NFamilyMax();
+        c = db.query(
+                ListingMembersTable.TABLE_NAME,  // The table to query
+                columns,                   // The columns to return
+                whereClause,               // The columns for the WHERE clause
+                whereArgs,                 // The values for the WHERE clause
+                groupBy,                   // don't group the rows
+                having,                    // don't filter by row groups
+                orderBy                    // The sort order
+        );
+        while (c.moveToNext()) nMax = new NFamilyMax().hydrate(c);
+        c.close();
+        return nMax.getNmax();
     }
 }

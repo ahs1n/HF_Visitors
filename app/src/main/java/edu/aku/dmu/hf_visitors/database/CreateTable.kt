@@ -121,6 +121,15 @@ object CreateTable {
             + " );"
             )
 
+    const val SQL_CREATE_N_FAMILY_MAX = ("CREATE TABLE "
+            + NFamilyMaxTable.TABLE_NAME + "("
+            + NFamilyMaxTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + NFamilyMaxTable.COLUMN_HF_CODE + " TEXT,"
+            + NFamilyMaxTable.COLUMN_CLUSTER_NO + " TEXT,"
+            + NFamilyMaxTable.COLUMN_N_MAX + " TEXT"
+            + " );"
+            )
+
     const val SQL_ALTER_ADD_hf01a = ("ALTER TABLE "
             + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
             + ListingMembersTable.COLUMN_HF01A + " TEXT;")

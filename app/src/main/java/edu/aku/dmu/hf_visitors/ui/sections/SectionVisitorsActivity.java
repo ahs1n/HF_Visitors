@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.validatorcrawler.aliazaz.Validator;
 
 import org.json.JSONException;
@@ -24,7 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 
 import edu.aku.dmu.hf_visitors.R;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
@@ -41,6 +45,8 @@ public class SectionVisitorsActivity extends AppCompatActivity {
     String st = "";
     private DatabaseHelper db;
     private ArrayList<String> areaNames, clustersCodes;
+
+    private int nMaxSPValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             bi.hf02.setEnabled(false);
             bi.hf02.setTextColor(ContextCompat.getColor(this, R.color.redDark));
             dpr.setHf02(listingMembers.getHhid());
+            nMaxSPValue = Integer.parseInt(listingMembers.getHhid().split("-")[1]);
 //            bi.hf03.setText(listingMembers.getHead());
             dpr.setHf03(listingMembers.getHead());
 //            bi.hf04.setText(listingMembers.getCellNo());
@@ -101,6 +108,8 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             bi.fldGrpCVhf07.setVisibility(View.VISIBLE);
             bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
             bi.fldGrpCVhf09.setVisibility(View.VISIBLE);
+
+            bi.hf02.setEnabled(false);
         }
 
 //        MainApp.dprNO++;
@@ -147,6 +156,14 @@ public class SectionVisitorsActivity extends AppCompatActivity {
                             dpr.setHf01b(_EMPTY_);
                             bi.fldGrpCVhf01b.setVisibility(View.GONE);
                         }
+
+                        // Generate Family Id dynamically
+                        String nMaxSP = sharedPref.getString("n_family_max", null);
+                        HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
+                        }.getType());
+                        nMaxSPValue = Integer.parseInt((String) Objects.requireNonNull(nMaxHMSP.get(MainApp.selectedClusterCode))) + 1;
+                        dpr.setHf02(String.format(Locale.getDefault(), "%04d-%04d-N",
+                                Integer.parseInt(MainApp.selectedClusterCode), nMaxSPValue));
                     }
                 }
             }
@@ -221,6 +238,12 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             i = new Intent(this, ListingMembersListActivity.class);
             startActivity(i);*/
             sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
+            // Update Family number in shared preference
+            String nMaxSP = sharedPref.getString("n_family_max", null);
+            HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
+            }.getType());
+            nMaxHMSP.put(MainApp.selectedClusterCode, nMaxSPValue);
+            sharedPref.edit().putString("n_family_max", new Gson().toJson(nMaxHMSP)).apply();
             finish();
         } else {
             Toast.makeText(this, R.string.fail_db_upd, Toast.LENGTH_SHORT).show();

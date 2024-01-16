@@ -104,4 +104,13 @@ public class TableContracts {
         public static final String COLUMN_EB_CODE = "ebcode";
         public static final String COLUMN_HF_CODE = "hf_code";
     }
+
+    // View to generate family no. programmatically
+    public static abstract class NFamilyMaxTable implements BaseColumns {
+        public static final String TABLE_NAME = "NEWFAMILYMAX";
+        public static final String COLUMN_ID = "_id";
+        public static final String COLUMN_HF_CODE = "hf_code";
+        public static final String COLUMN_CLUSTER_NO = "cluster_no";
+        public static final String COLUMN_N_MAX = "nmax";
+    }
 }
