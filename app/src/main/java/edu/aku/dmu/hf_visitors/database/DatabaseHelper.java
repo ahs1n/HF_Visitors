@@ -848,7 +848,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
             NFamilyMax nMax = gson.fromJson(nFamilyMaxList.getJSONObject(i).toString(), NFamilyMax.class);
-            nMaxHMDB.put(nMax.getCluster_no(), nMax.getNmax() != null && !nMax.getNmax().equals("")? nMax.getNmax() : "0");
+            nMaxHMDB.put(nMax.getCluster_no(), nMax.getNmax() != null && !nMax.getNmax().equals("") ? nMax.getNmax() : "0");
 
             ContentValues values = new ContentValues();
 
@@ -903,7 +903,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String orderBy = TableContracts.NFamilyMaxTable.COLUMN_ID + " DESC";
         NFamilyMax nMax = new NFamilyMax();
         c = db.query(
-                ListingMembersTable.TABLE_NAME,  // The table to query
+                TableContracts.NFamilyMaxTable.TABLE_NAME,  // The table to query
                 columns,                   // The columns to return
                 whereClause,               // The columns for the WHERE clause
                 whereArgs,                 // The values for the WHERE clause
@@ -913,6 +913,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
         while (c.moveToNext()) nMax = new NFamilyMax().hydrate(c);
         c.close();
-        return nMax.getNmax();
+        return nMax.getNmax() != null && !nMax.getNmax().equals("") ? nMax.getNmax() : "0";
     }
 }

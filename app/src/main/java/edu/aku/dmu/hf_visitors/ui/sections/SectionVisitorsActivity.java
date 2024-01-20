@@ -242,7 +242,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             String nMaxSP = sharedPref.getString("n_family_max", null);
             HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
             }.getType());
-            nMaxHMSP.put(MainApp.selectedClusterCode, nMaxSPValue);
+            nMaxHMSP.put(MainApp.selectedClusterCode, Integer.toString(nMaxSPValue));
             sharedPref.edit().putString("n_family_max", new Gson().toJson(nMaxHMSP)).apply();
             finish();
         } else {
