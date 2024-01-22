@@ -5,6 +5,7 @@ import static edu.aku.dmu.hf_visitors.core.MainApp.dpr;
 import static edu.aku.dmu.hf_visitors.core.MainApp.listingMembers;
 import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,7 @@ import edu.aku.dmu.hf_visitors.database.DatabaseHelper;
 import edu.aku.dmu.hf_visitors.databinding.ActivitySectionVisitorsBinding;
 import edu.aku.dmu.hf_visitors.models.Clusters;
 import edu.aku.dmu.hf_visitors.models.DPR;
+import edu.aku.dmu.hf_visitors.ui.lists.ListingMembersListActivity;
 
 public class SectionVisitorsActivity extends AppCompatActivity {
 
@@ -65,7 +67,6 @@ public class SectionVisitorsActivity extends AppCompatActivity {
         if (!isNew) {
             dpr.setUuid(listingMembers.getUID());
 //            bi.hf02.setText(listingMembers.getHhid());
-            bi.hf02.setEnabled(false);
             bi.hf02.setTextColor(ContextCompat.getColor(this, R.color.redDark));
             dpr.setHf02(listingMembers.getHhid());
             nMaxSPValue = Integer.parseInt(listingMembers.getHhid().split("-")[1]);
@@ -108,8 +109,6 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             bi.fldGrpCVhf07.setVisibility(View.VISIBLE);
             bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
             bi.fldGrpCVhf09.setVisibility(View.VISIBLE);
-
-            bi.hf02.setEnabled(false);
         }
 
 //        MainApp.dprNO++;
@@ -244,7 +243,9 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             }.getType());
             nMaxHMSP.put(MainApp.selectedClusterCode, Integer.toString(nMaxSPValue));
             sharedPref.edit().putString("n_family_max", new Gson().toJson(nMaxHMSP)).apply();
-            finish();
+            Intent i;
+            i = new Intent(this, ListingMembersListActivity.class);
+            startActivity(i);
         } else {
             Toast.makeText(this, R.string.fail_db_upd, Toast.LENGTH_SHORT).show();
         }
