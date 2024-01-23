@@ -5,12 +5,10 @@ import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,28 +37,59 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(bi.toolbar);
         bi.toolbar.setSubtitle("Welcome, " + MainApp.user.getFullname() + (MainApp.admin ? " (Admin)" : "") + "!");
         bi.setCallback(this);
+        tabletID();
 
         bi.adminView.setVisibility(MainApp.admin ? View.VISIBLE : View.GONE);
         bi.username.setText("Welcome, " + MainApp.user.getFullname() + "!");
+    }
 
+    private void tabletID() {
         String tab_ID = sharedPref.getString("tabID", "");
 
         if (tab_ID.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Enter Tablet ID");
+            builder.setCancelable(false);
+            // Inflate the custom layout for the dialog
+            View dialogLayout = getLayoutInflater().inflate(R.layout.dialog_tablet_id, null);
+            builder.setView(dialogLayout);
 
-            /*Setup the input*/
-            final EditText tabID = new EditText(this);
+            // Find the radio buttons in the custom layout
+            RadioButton radioButtonA = dialogLayout.findViewById(R.id.radioButtonA);
+            RadioButton radioButtonB = dialogLayout.findViewById(R.id.radioButtonB);
+
+            // Set up the buttons
+            builder.setPositiveButton("OK", (dialog, which) -> {
+                String selectedTabID;
+                if (radioButtonA.isChecked()) {
+                    selectedTabID = "A";
+                } else if (radioButtonB.isChecked()) {
+                    selectedTabID = "B";
+                } else {
+                    // Handle the case where neither radio button is checked
+                    selectedTabID = ""; // Set a default value or handle accordingly
+                }
+
+                MainApp.editor.putString("tabID", selectedTabID).apply();
+
+                /*Setup the input*/
+            /*final EditText tabID = new EditText(this);
             tabID.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
             tabID.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
             builder.setView(tabID);
 
-            // Set up the buttons
+                // Set up the buttons
             builder.setPositiveButton("OK", (dialog, which) -> {
-                MainApp.editor.putString("tabID", tabID.getText().toString()).apply();
+                MainApp.editor.putString("tabID", tabID.getText().toString()).apply();*/
             });
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
+            // Make the dialog not cancelable
+            builder.setOnCancelListener(dialog -> {
+                // Do nothing when the cancel button is pressed
+            });
+            AlertDialog alertDialog = builder.create();
+//            alertDialog.setCancelable(false); // This prevents clicking outside the dialog to dismiss it
+            alertDialog.setCanceledOnTouchOutside(false); // This prevents clicking outside the dialog to dismiss it
+//            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
             builder.show();
         }
     }
@@ -71,8 +100,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.openForm:
                 MainApp.dpr = new DPR();
                 MainApp.listingMembers = new ListingMembers();
-                finish();
-                startActivity(new Intent(this, ListingMembersListActivity.class));
+                if (sharedPref.getString("tabID", "").equals("")) {
+                    tabletID();
+                } else {
+                    finish();
+                    startActivity(new Intent(this, ListingMembersListActivity.class));
+                }
                 break;
             case R.id.dbm:
                 startActivity(new Intent(this, AndroidManager.class));

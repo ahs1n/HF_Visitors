@@ -343,7 +343,9 @@
                 <!-- hf05  Input   -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fldGrpCVhf05"
-                    style="@style/cardView">
+                    style="@style/cardView"
+                    tools:visibility="visible"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -480,6 +482,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:text="@string/hf09d" />
+
+                            <TextView
+                                style="@style/sub_labels"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/hf09m" />
 
                             <TextView
@@ -494,6 +503,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
+                            <com.edittextpicker.aliazaz.EditTextPicker
+                                android:id="@+id/hf09d"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:hint="##"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:text="@={form.hf09d}"
+                                app:maxValue="30"
+                                app:minValue="0"
+                                app:type="range" />
 
                             <com.edittextpicker.aliazaz.EditTextPicker
                                 android:id="@+id/hf09m"
@@ -519,7 +542,7 @@
                                 android:inputType="number"
                                 android:maxLength="2"
                                 android:text="@={form.hf09y}"
-                                app:maxValue="59"
+                                app:maxValue="80"
                                 app:minValue="0"
                                 app:type="range" />
                         </LinearLayout>
@@ -562,12 +585,12 @@
                                 android:background="@color/colorPrimaryOverlay"
                                 android:enabled="false"
                                 android:gravity="center"
-                                android:hint="###"
+                                android:hint="#####"
                                 android:inputType="number"
-                                android:maxLength="3"
+                                android:maxLength="5"
                                 android:text="@={form.hf06}"
                                 android:textColor="@color/grayDark"
-                                app:maxValue="999"
+                                app:maxValue="99999"
                                 app:minValue="0"
                                 app:type="range" />
                         </LinearLayout>

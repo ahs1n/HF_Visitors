@@ -60,6 +60,7 @@ public class DPR extends BaseObservable {
     private String hf07 = _EMPTY_;
     private String hf07a = _EMPTY_;
     private String hf08 = _EMPTY_;
+    private String hf09d = _EMPTY_;
     private String hf09m = _EMPTY_;
     private String hf09y = _EMPTY_;
     private String dPR = _EMPTY_;
@@ -355,6 +356,16 @@ public class DPR extends BaseObservable {
     }
 
     @Bindable
+    public String getHf09d() {
+        return hf09d;
+    }
+
+    public void setHf09d(String hf09d) {
+        this.hf09d = hf09d;
+        notifyPropertyChanged(BR.hf09d);
+    }
+
+    @Bindable
     public String getHf09y() {
         return hf09y;
     }
@@ -404,6 +415,7 @@ public class DPR extends BaseObservable {
             this.hf07a = json.getString("hf07a");
             this.hf08 = json.getString("gender");
             this.hf09m = json.getString("agem");
+            this.hf09d = json.getString("aged");
             this.hf09y = json.getString("agey");
         }
     }
@@ -427,6 +439,7 @@ public class DPR extends BaseObservable {
                 .put("hf07a", hf07a)
                 .put("gender", hf08)
                 .put("agem", hf09m)
+                .put("aged", hf09d)
                 .put("agey", hf09y);
 
         return json.toString();
