@@ -64,6 +64,7 @@ public class DPR extends BaseObservable {
     private String hf09m = _EMPTY_;
     private String hf09y = _EMPTY_;
     private String dPR = _EMPTY_;
+    private String nfamily = _EMPTY_;
 
 
     public void populateMeta() {
@@ -375,6 +376,16 @@ public class DPR extends BaseObservable {
         notifyPropertyChanged(BR.hf09y);
     }
 
+    @Bindable
+    public String getNfamily() {
+        return nfamily;
+    }
+
+    public void setNfamily(String nfamily) {
+        this.nfamily = nfamily;
+        notifyPropertyChanged(BR.nfamily);
+    }
+
     public DPR Hydrate(Cursor cursor) throws JSONException {
         this.id = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_ID));
         this.uid = cursor.getString(cursor.getColumnIndexOrThrow(VisitorsTable.COLUMN_UID));
@@ -417,6 +428,7 @@ public class DPR extends BaseObservable {
             this.hf09m = json.getString("agem");
             this.hf09d = json.getString("aged");
             this.hf09y = json.getString("agey");
+            this.nfamily = json.getString("nfamily");
         }
     }
 
@@ -440,7 +452,8 @@ public class DPR extends BaseObservable {
                 .put("gender", hf08)
                 .put("agem", hf09m)
                 .put("aged", hf09d)
-                .put("agey", hf09y);
+                .put("agey", hf09y)
+                .put("nfamily", nfamily);
 
         return json.toString();
     }

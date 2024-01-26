@@ -234,6 +234,9 @@ public class SectionVisitorsActivity extends AppCompatActivity {
     public void btnContinue(View view) {
         if (!formValidation()) return;
         dpr.setStartTime(st);
+        if (dpr.getFlag().equals("3")) {
+            dpr.setNfamily(dpr.getHf02());
+        }
         if (!insertNewRecord()) return;
         if (updateDB()) {
             /*Intent i;

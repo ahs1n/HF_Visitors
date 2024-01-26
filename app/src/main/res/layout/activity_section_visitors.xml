@@ -247,12 +247,25 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:hint="#####-#######-#"
+                                android:enabled="@{!hf02ana.checked}"
                                 android:inputType="number"
                                 android:maxLength="11"
                                 android:text="@={form.hf02a}"
                                 app:mask="#####-#######-#"
                                 app:pattern="^(\\d{5,5}\\-\\d{7,7}\\-\\d{1,1})$" />
                         </LinearLayout>
+
+                        <CheckBox
+                            android:id="@+id/hf02ana"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:tag="-1"
+                            android:textColor="@color/redDark"
+                            android:backgroundTint="@color/lightPink"
+                            android:onClick="@{()->form.setHf02a(form.hf02a.equals(`99999-9999999-9`)?``:`99999-9999999-9`)}"
+                            android:text="N/A" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -344,8 +357,8 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fldGrpCVhf05"
                     style="@style/cardView"
-                    tools:visibility="visible"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
