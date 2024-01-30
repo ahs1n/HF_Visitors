@@ -131,7 +131,8 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fldGrpCVhf01b"
                     style="@style/cardView"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -356,9 +357,7 @@
                 <!-- hf05  Input   -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fldGrpCVhf05"
-                    style="@style/cardView"
-                    android:visibility="gone"
-                    tools:visibility="visible">
+                    style="@style/cardView">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -602,9 +601,10 @@
                                 android:inputType="number"
                                 android:maxLength="5"
                                 android:text="@={form.hf06}"
-                                android:textColor="@color/grayDark"
+                                android:textColor="@color/redDark"
                                 app:maxValue="99999"
                                 app:minValue="0"
+                                android:textSize="@dimen/_11sdp"
                                 app:type="range" />
                         </LinearLayout>
 
@@ -736,7 +736,7 @@
                             android:id="@+id/hf07a"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:digits="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789-/ "
                             android:text="@={form.hf07a}" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

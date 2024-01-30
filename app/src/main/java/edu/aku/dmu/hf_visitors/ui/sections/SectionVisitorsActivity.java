@@ -72,10 +72,11 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             nMaxSPValue = Integer.parseInt(listingMembers.getHhid().split("-")[1]);
 //            bi.hf03.setText(listingMembers.getHead());
             dpr.setHf03(listingMembers.getHead());
+            bi.hf03.setEnabled(false);
 //            bi.hf04.setText(listingMembers.getCellNo());
             dpr.setHf04(listingMembers.getCellNo());
             bi.fldGrpCVhf01a.setVisibility(View.GONE);
-            bi.fldGrpCVhf05.setVisibility(View.VISIBLE);
+//            bi.fldGrpCVhf05.setVisibility(View.VISIBLE);
             /*TODO:
             need to set spinner
             * */
@@ -111,7 +112,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             bi.fldGrpCVhf07.setVisibility(View.VISIBLE);
             bi.fldGrpCVhf08.setVisibility(View.VISIBLE);
             bi.fldGrpCVhf09.setVisibility(View.VISIBLE);
-            bi.hf09y.setMinvalue(18);
+//            bi.hf09y.setMinvalue(18);
         }
 
 //        MainApp.dprNO++;
