@@ -113,4 +113,14 @@ public class TableContracts {
         public static final String COLUMN_CLUSTER_NO = "cluster_no";
         public static final String COLUMN_N_MAX = "nmax";
     }
+
+    public static abstract class VisitsCountTable implements BaseColumns {
+        public static final String TABLE_NAME = "visitcount";
+        public static final String COLUMN_ID = "_id";
+        public static final String COLUMN_HF02 = "hf02";
+        public static final String COLUMN_HF_CODE = "hf_code";
+        public static final String COLUMN_HF03 = "hf03";
+        public static final String COLUMN_TOT_VISITS = "tot_visits";
+        public static final String COLUMN_MONTH_VISITS = "month_visits";
+    }
 }

@@ -130,6 +130,17 @@ object CreateTable {
             + " );"
             )
 
+    const val SQL_CREATE_VISIT_COUNT = ("CREATE TABLE "
+            + VisitsCountTable.TABLE_NAME + "("
+            + VisitsCountTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + VisitsCountTable.COLUMN_HF02 + " TEXT,"
+            + VisitsCountTable.COLUMN_HF_CODE + " TEXT,"
+            + VisitsCountTable.COLUMN_HF03 + " TEXT,"
+            + VisitsCountTable.COLUMN_TOT_VISITS + " TEXT,"
+            + VisitsCountTable.COLUMN_MONTH_VISITS + " TEXT"
+            + " );"
+            )
+
     const val SQL_ALTER_ADD_hf01a = ("ALTER TABLE "
             + ListingMembersTable.TABLE_NAME + " ADD COLUMN "
             + ListingMembersTable.COLUMN_HF01A + " TEXT;")

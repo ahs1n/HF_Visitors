@@ -32,6 +32,30 @@
             app:title="DPR Number"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalVisits"
+                style="@style/sub_labels"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total Visits: ##" />
+
+            <TextView
+                android:id="@+id/crMonth"
+                style="@style/sub_labels"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Current Month Visits: ##" />
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -246,9 +270,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:enabled="@{!hf02ana.checked}"
                                 android:gravity="center"
                                 android:hint="#####-#######-#"
-                                android:enabled="@{!hf02ana.checked}"
                                 android:inputType="number"
                                 android:maxLength="11"
                                 android:text="@={form.hf02a}"
@@ -261,11 +285,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:tag="-1"
-                            android:textColor="@color/redDark"
                             android:backgroundTint="@color/lightPink"
                             android:onClick="@{()->form.setHf02a(form.hf02a.equals(`99999-9999999-9`)?``:`99999-9999999-9`)}"
-                            android:text="N/A" />
+                            android:tag="-1"
+                            android:text="N/A"
+                            android:textColor="@color/redDark" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -602,9 +626,9 @@
                                 android:maxLength="5"
                                 android:text="@={form.hf06}"
                                 android:textColor="@color/redDark"
+                                android:textSize="@dimen/_11sdp"
                                 app:maxValue="99999"
                                 app:minValue="0"
-                                android:textSize="@dimen/_11sdp"
                                 app:type="range" />
                         </LinearLayout>
 

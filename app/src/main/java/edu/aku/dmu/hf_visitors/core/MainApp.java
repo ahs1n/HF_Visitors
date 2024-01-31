@@ -35,6 +35,7 @@ import edu.aku.dmu.hf_visitors.R;
 import edu.aku.dmu.hf_visitors.models.DPR;
 import edu.aku.dmu.hf_visitors.models.ListingMembers;
 import edu.aku.dmu.hf_visitors.models.Users;
+import edu.aku.dmu.hf_visitors.models.VisitsCount;
 import edu.aku.dmu.hf_visitors.ui.LockActivity;
 
 
@@ -84,6 +85,7 @@ public class MainApp extends Application {
     public static int dprNO = 0;
     public static String selectedAreaName;
     public static String selectedClusterCode;
+    public static VisitsCount visitsCountList;
 
     public static void hideSystemUI(View decorView) {
         // Enables regular immersive mode.

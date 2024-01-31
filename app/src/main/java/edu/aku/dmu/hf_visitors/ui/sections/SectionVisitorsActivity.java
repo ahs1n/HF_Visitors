@@ -4,6 +4,7 @@ import static edu.aku.dmu.hf_visitors.core.MainApp._EMPTY_;
 import static edu.aku.dmu.hf_visitors.core.MainApp.dpr;
 import static edu.aku.dmu.hf_visitors.core.MainApp.listingMembers;
 import static edu.aku.dmu.hf_visitors.core.MainApp.sharedPref;
+import static edu.aku.dmu.hf_visitors.core.MainApp.visitsCountList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,6 +74,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 //            bi.hf03.setText(listingMembers.getHead());
             dpr.setHf03(listingMembers.getHead());
             bi.hf03.setEnabled(false);
+            bi.hf03.setTextColor(ContextCompat.getColor(this, R.color.redDark));
 //            bi.hf04.setText(listingMembers.getCellNo());
             dpr.setHf04(listingMembers.getCellNo());
             bi.fldGrpCVhf01a.setVisibility(View.GONE);
@@ -118,6 +120,11 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 //        MainApp.dprNO++;
         bi.hf06.setText(new StringBuilder().append(sharedPref.getString("tabID", "")).append(MainApp.dprNO).toString());
         dpr.setHf06(sharedPref.getString("tabID", "") + MainApp.dprNO);
+
+        MainApp.visitsCountList = db.getVisitsCountByHFANDHHID(listingMembers.getHf_code(), listingMembers.getHhid(), listingMembers.getHead());
+
+        bi.totalVisits.setText(String.format("%s%s", "Total Visits: ", visitsCountList.getTot_visits().equals("") ? "0" : visitsCountList.getTot_visits()));
+        bi.crMonth.setText(String.format("%s%s", "Current Month Visits: ", visitsCountList.getMonth_visits().equals("") ? "0" : visitsCountList.getMonth_visits()));
     }
 
     private void populateSpinner() {

@@ -16,6 +16,7 @@ import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_N_FAMILY_M
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_USERS;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VERSIONAPP;
 import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VISITORS;
+import static edu.aku.dmu.hf_visitors.database.CreateTable.SQL_CREATE_VISIT_COUNT;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -51,6 +52,7 @@ import edu.aku.dmu.hf_visitors.contracts.TableContracts.EntryLogTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.ListingMembersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.UsersTable;
 import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitorsTable;
+import edu.aku.dmu.hf_visitors.contracts.TableContracts.VisitsCountTable;
 import edu.aku.dmu.hf_visitors.core.MainApp;
 import edu.aku.dmu.hf_visitors.models.Clusters;
 import edu.aku.dmu.hf_visitors.models.DPR;
@@ -58,6 +60,7 @@ import edu.aku.dmu.hf_visitors.models.EntryLog;
 import edu.aku.dmu.hf_visitors.models.ListingMembers;
 import edu.aku.dmu.hf_visitors.models.NFamilyMax;
 import edu.aku.dmu.hf_visitors.models.Users;
+import edu.aku.dmu.hf_visitors.models.VisitsCount;
 
 /**
  * @author muhammad.hussain on 11/01/2023.
@@ -85,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_ENTRYLOGS);
         db.execSQL(SQL_CREATE_CLUSTERS);
         db.execSQL(SQL_CREATE_N_FAMILY_MAX);
+        db.execSQL(SQL_CREATE_VISIT_COUNT);
 
     }
 
@@ -101,6 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_ALTER_ADD_hf07a);
             case 3:
                 db.execSQL(SQL_CREATE_N_FAMILY_MAX);
+                db.execSQL(SQL_CREATE_VISIT_COUNT);
         }
     }
 
@@ -914,5 +919,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (c.moveToNext()) nMax = new NFamilyMax().hydrate(c);
         c.close();
         return nMax.getNmax() != null && !nMax.getNmax().equals("") ? nMax.getNmax() : "0";
+    }
+
+    public int syncvisitcount(JSONArray visitsList) throws JSONException {
+        SQLiteDatabase db = this.getWritableDatabase(DATABASE_PASSWORD);
+        db.delete(VisitsCountTable.TABLE_NAME, null, null);
+        int insertCount = 0;
+        for (int i = 0; i < visitsList.length(); i++) {
+
+            JSONObject jsonObjectVisits = visitsList.getJSONObject(i);
+
+            VisitsCount visitsCount = new VisitsCount();
+            visitsCount.sync(jsonObjectVisits);
+            ContentValues values = new ContentValues();
+
+            values.put(VisitsCountTable.COLUMN_HF02, visitsCount.getHf02());
+            values.put(VisitsCountTable.COLUMN_HF_CODE, visitsCount.getHf_code());
+            values.put(VisitsCountTable.COLUMN_HF03, visitsCount.getHf03());
+            values.put(VisitsCountTable.COLUMN_TOT_VISITS, visitsCount.getTot_visits());
+            values.put(VisitsCountTable.COLUMN_MONTH_VISITS, visitsCount.getMonth_visits());
+            long rowID = db.insert(VisitsCountTable.TABLE_NAME, null, values);
+            if (rowID != -1) insertCount++;
+        }
+        return insertCount;
+    }
+
+    public VisitsCount getVisitsCountByHFANDHHID(String hfCode, String hhid, String head) {
+
+        SQLiteDatabase db = this.getReadableDatabase(DATABASE_PASSWORD);
+        Cursor c = null;
+        String[] columns = null;
+        String whereClause = VisitsCountTable.COLUMN_HF_CODE + " = ? AND "
+                 + VisitsCountTable.COLUMN_HF02 + " = ? AND "
+                 + VisitsCountTable.COLUMN_HF03 + " = ? ";
+        String[] whereArgs = {hfCode, hhid, head};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy = VisitsCountTable.COLUMN_HF_CODE + " ASC";
+        VisitsCount visitsCounts = new VisitsCount();
+
+        c = db.query(
+                VisitsCountTable.TABLE_NAME,  // The table to query
+                columns,                   // The columns to return
+                whereClause,               // The columns for the WHERE clause
+                whereArgs,                 // The values for the WHERE clause
+                groupBy,                   // don't group the rows
+                having,                    // don't filter by row groups
+                orderBy                    // The sort order
+        );
+        while (c.moveToNext()) {
+            visitsCounts = new VisitsCount().hydrate(c);
+        }
+        return visitsCounts;
     }
 }
