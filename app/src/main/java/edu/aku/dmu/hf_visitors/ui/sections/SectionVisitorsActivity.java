@@ -70,7 +70,7 @@ public class SectionVisitorsActivity extends AppCompatActivity {
 //            bi.hf02.setText(listingMembers.getHhid());
             bi.hf02.setTextColor(ContextCompat.getColor(this, R.color.redDark));
             dpr.setHf02(listingMembers.getHhid());
-            nMaxSPValue = Integer.parseInt(listingMembers.getHhid().split("-")[1]);
+//            nMaxSPValue = Integer.parseInt(listingMembers.getHhid().split("-")[1]);
 //            bi.hf03.setText(listingMembers.getHead());
             dpr.setHf03(listingMembers.getHead());
             bi.hf03.setEnabled(false);

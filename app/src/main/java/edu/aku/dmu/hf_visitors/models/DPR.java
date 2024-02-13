@@ -413,22 +413,22 @@ public class DPR extends BaseObservable {
             JSONObject json = null;
             json = new JSONObject(string);
             this.hf01 = json.getString("hf01");
-            this.hf01a = json.getString("hf01a");
-            this.hf01b = json.getString("hf01b");
+            this.hf01a = json.has("hf01a") ? json.getString("hf01a") : "";
+            this.hf01b = json.has("hf01b") ? json.getString("hf01b") : "";
             this.hf02 = json.getString("hf02");
-            this.hf02a = json.getString("hf02a");
+            this.hf02a = json.has("hf02a") ?  json.getString("hf02a") : "";
             this.hf03 = json.getString("hf03");
             this.hf04 = json.getString("hf04");
             this.hf05 = json.getString("hf05");
             this.hf06 = json.getString("hf06");
-            this.hf06a = json.getString("hf06a");
+            this.hf06a = json.has("hf06a") ?  json.getString("hf06a") : "";
             this.hf07 = json.getString("hf07");
-            this.hf07a = json.getString("hf07a");
+            this.hf07a = json.has("hf07a") ?  json.getString("hf07a") : "";
             this.hf08 = json.getString("gender");
             this.hf09m = json.getString("agem");
-            this.hf09d = json.getString("aged");
+            this.hf09d = json.has("aged") ?  json.getString("aged") : "";
             this.hf09y = json.getString("agey");
-            this.nfamily = json.getString("nfamily");
+            this.nfamily = json.has("nfamily") ?  json.getString("nfamily") : "";
         }
     }
 
