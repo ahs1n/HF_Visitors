@@ -882,7 +882,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     } else {
                         // If there is an additional record which was not present earlier
                         // then save it
-                        String clusterKeyDB = (String) nMaxHMSP.keySet().toArray()[i];
+                        String clusterKeyDB = (String) nMaxHMDB.keySet().toArray()[i];
                         String nMaxValueDB = (String) Objects.requireNonNull(nMaxHMDB.get(clusterKeyDB));
                         nMaxHMSP.put(clusterKeyDB, nMaxValueDB);
                     }

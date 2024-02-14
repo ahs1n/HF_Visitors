@@ -244,12 +244,6 @@ public class SectionVisitorsActivity extends AppCompatActivity {
         dpr.setStartTime(st);
         if (dpr.getFlag().equals("3")) {
             dpr.setNfamily(dpr.getHf02());
-        }
-        if (!insertNewRecord()) return;
-        if (updateDB()) {
-            /*Intent i;
-            i = new Intent(this, ListingMembersListActivity.class);
-            startActivity(i);*/
             sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
             // Update Family number in shared preference
             String nMaxSP = sharedPref.getString("n_family_max", null);
@@ -257,6 +251,19 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             }.getType());
             nMaxHMSP.put(MainApp.selectedClusterCode, Integer.toString(nMaxSPValue));
             sharedPref.edit().putString("n_family_max", new Gson().toJson(nMaxHMSP)).apply();
+        }
+        if (!insertNewRecord()) return;
+        if (updateDB()) {
+            /*Intent i;
+            i = new Intent(this, ListingMembersListActivity.class);
+            startActivity(i);*/
+            /*sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
+            // Update Family number in shared preference
+            String nMaxSP = sharedPref.getString("n_family_max", null);
+            HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
+            }.getType());
+            nMaxHMSP.put(MainApp.selectedClusterCode, Integer.toString(nMaxSPValue));
+            sharedPref.edit().putString("n_family_max", new Gson().toJson(nMaxHMSP)).apply();*/
             Intent i;
             i = new Intent(this, ListingMembersListActivity.class);
             startActivity(i);
