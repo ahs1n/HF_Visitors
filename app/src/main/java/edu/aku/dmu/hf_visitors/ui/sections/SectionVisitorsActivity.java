@@ -244,7 +244,6 @@ public class SectionVisitorsActivity extends AppCompatActivity {
         dpr.setStartTime(st);
         if (dpr.getFlag().equals("3")) {
             dpr.setNfamily(dpr.getHf02());
-            sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
             // Update Family number in shared preference
             String nMaxSP = sharedPref.getString("n_family_max", null);
             HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
@@ -257,8 +256,8 @@ public class SectionVisitorsActivity extends AppCompatActivity {
             /*Intent i;
             i = new Intent(this, ListingMembersListActivity.class);
             startActivity(i);*/
-            /*sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
-            // Update Family number in shared preference
+            sharedPref.edit().putInt("dpr_no", ++MainApp.dprNO).apply();
+            /*// Update Family number in shared preference
             String nMaxSP = sharedPref.getString("n_family_max", null);
             HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
             }.getType());

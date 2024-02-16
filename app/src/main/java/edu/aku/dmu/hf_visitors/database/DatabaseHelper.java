@@ -42,7 +42,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -848,7 +848,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase(DATABASE_PASSWORD);
         db.delete(TableContracts.NFamilyMaxTable.TABLE_NAME, null, null);
         int insertCount = 0;
-        HashMap<String, Object> nMaxHMDB = new HashMap<>();
+        LinkedHashMap<String, Object> nMaxHMDB = new LinkedHashMap<>();
         for (int i = 0; i < nFamilyMaxList.length(); i++) {
 
 
@@ -867,11 +867,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (nMaxHMDB.size() > 0) {
             String prevNMaxHM = sharedPref.getString("n_family_max", null);
             if (prevNMaxHM != null) {
-                HashMap<String, Object> nMaxHMSP = gson.fromJson(prevNMaxHM, new TypeToken<HashMap<String, Object>>() {
+                LinkedHashMap<String, Object> nMaxHMSP = gson.fromJson(prevNMaxHM, new TypeToken<LinkedHashMap<String, Object>>() {
                 }.getType());
                 for (int i = 0; i < nMaxHMDB.size(); i++) {
                     // This check is for the case if any new cluster is added
-                    if (i < nMaxHMSP.size()) {
+                    String clusterKeyDB = (String) nMaxHMDB.keySet().toArray()[i];
+                    boolean isSPKeyExists = nMaxHMSP.containsKey(clusterKeyDB);
+                    if (isSPKeyExists) {
+                        int nMaxValueSP = Integer.parseInt((String) Objects.requireNonNull(nMaxHMSP.get(clusterKeyDB)));
+                        int nMaxValueDB = Integer.parseInt(getNFamilyMax(MainApp.user.getHfcode(), clusterKeyDB));
+                        nMaxHMSP.put(clusterKeyDB, Math.max(nMaxValueSP, nMaxValueDB));
+                    } else {
+                        String nMaxValueDB = (String) Objects.requireNonNull(nMaxHMDB.get(clusterKeyDB));
+                        nMaxHMSP.put(clusterKeyDB, Integer.parseInt(nMaxValueDB));
+                    }
+                    /*if (i < nMaxHMSP.size()) {
                         // Now check which of the number is max. DB or Temporary Storage(Shared Preference).
                         // Whichever is max just save it
                         String clusterKeySP = (String) nMaxHMSP.keySet().toArray()[i];
@@ -884,8 +894,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         // then save it
                         String clusterKeyDB = (String) nMaxHMDB.keySet().toArray()[i];
                         String nMaxValueDB = (String) Objects.requireNonNull(nMaxHMDB.get(clusterKeyDB));
-                        nMaxHMSP.put(clusterKeyDB, nMaxValueDB);
-                    }
+                        nMaxHMSP.put(clusterKeyDB, Integer.parseInt(nMaxValueDB));
+                    }*/
                 }
             } else {
                 // Save in temporary storage for comparison
