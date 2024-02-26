@@ -172,8 +172,8 @@ public class SectionVisitorsActivity extends AppCompatActivity {
                         HashMap<String, Object> nMaxHMSP = new Gson().fromJson(nMaxSP, new TypeToken<HashMap<String, Object>>() {
                         }.getType());
                         nMaxSPValue = Integer.parseInt((String) Objects.requireNonNull(nMaxHMSP.get(MainApp.selectedClusterCode))) + 1;
-                        dpr.setHf02(String.format(Locale.getDefault(), "%04d-%04d-N",
-                                Integer.parseInt(MainApp.selectedClusterCode), nMaxSPValue));
+                        dpr.setHf02(String.format(Locale.getDefault(), "%04d-%04d-%s-N",
+                                Integer.parseInt(MainApp.selectedClusterCode), nMaxSPValue, sharedPref.getString("tabID","")));
                     }
                 }
             }
